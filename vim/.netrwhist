@@ -1,0 +1,10 @@
+let g:netrw_dirhistmax  =10
+let g:netrw_dirhist_cnt =8
+let g:netrw_dirhist_1='/home/georgi/PMS/app/views/users'
+let g:netrw_dirhist_2='/home/georgi/Dropbox/.dotfiles/oh-my-zsh/plugins/git-flow'
+let g:netrw_dirhist_3='/home/georgi/code/rb/pomodiary/config/deploy'
+let g:netrw_dirhist_4='/home/georgi/code/rb/pms/lib/epay'
+let g:netrw_dirhist_5='/home/georgi/code/rb/epaybg/lib/epaybg'
+let g:netrw_dirhist_6='/home/georgi/Dropbox/.dotfiles/oh-my-zsh/custom/example'
+let g:netrw_dirhist_7='/home/georgi/code/rb/pms/config/deploy'
+let g:netrw_dirhist_8='/home/georgi/Dropbox/.dotfiles/vim/bundle/xmledit'

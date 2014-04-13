@@ -19,8 +19,6 @@ snippet beg
 
 snippet req
 	require "${1}"${2}
-snippet #
-	# =>
 snippet end
 	__END__
 snippet case
@@ -294,6 +292,12 @@ snippet injd
 	inject(${1:init}) do |${2:mem}, ${3:var}|
 		${4}
 	end		
+snippet red
+	reduce(${1:init}) { |${2:mem}, ${3:var}| ${4} }
+snippet redd
+	redd(${1:init}) do |${2:mem}, ${3:var}|
+		${4}
+	end		
 snippet map
 	map { |${1:e}| ${2} }
 snippet mapd
@@ -503,3 +507,8 @@ snippet p
 snippet t
 	<%= t "${1}" %>
 	
+snippet #
+	# ${1} (`strftime("%Y-%m-%d")`)
+
+snippet todo
+	#TODO ${1} (`strftime("%Y-%m-%d")`)

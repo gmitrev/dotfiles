@@ -439,7 +439,7 @@ else
         hi CursorIM                     guibg=#87afd7
         hi Error        guifg=#ff8787   guibg=#870000
         hi IncSearch                    guibg=#5fd7d7
-        hi MatchParen                   guibg=#afd75f
+        hi MatchParen   guifg=#ff8787   guibg=#afd75f
         hi Search                       guibg=#d78700
         hi Todo         guifg=#d7d75f   guibg=#5f5f00
     endif

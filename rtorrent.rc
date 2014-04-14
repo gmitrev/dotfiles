@@ -43,11 +43,11 @@ directory = ~/Downloads/torrents/
 schedule = low_diskspace,5,60,close_low_diskspace=2048M
 
 # Watch a directory for new torrents, and stop those that have been deleted (^d)
-schedule = watch_directory,5,5,"load_start=~/Downloads/torrents/watch/*.torrent"
-schedule = watch_directory_2,5,5,"load_start=~/Downloads/torrents/watch/music/*.torrent,d.set_directory=~/Downloads/music"
-schedule = watch_directory_3,5,5,"load_start=~/Downloads/torrents/watch/videos/*.torrent,d.set_directory=~/Videos"
-schedule = watch_directory_4,5,5,"load_start=~/Downloads/torrents/watch/games/*.torrent,d.set_directory=~/Downloads/games"
-schedule = watch_directory_5,5,5,"load_start=~/Downloads/torrents/watch/books/*.torrent,d.set_directory=~/Downloads/books"
+schedule = watch_directory,5,5,"load_start=~/sync/torrents/watch/*.torrent"
+schedule = watch_directory_2,5,5,"load_start=~/sync/torrents/watch/music/*.torrent,d.set_directory=~/Downloads/music"
+schedule = watch_directory_3,5,5,"load_start=~/sync/torrents/watch/videos/*.torrent,d.set_directory=~/Videos"
+schedule = watch_directory_4,5,5,"load_start=~/sync/torrents/watch/games/*.torrent,d.set_directory=~/Downloads/games"
+schedule = watch_directory_5,5,5,"load_start=~/sync/torrents/watch/books/*.torrent,d.set_directory=~/Downloads/books"
 schedule = untied_directory,5,5,stop_untied= ; stop torrents once removed from the client
 
 # Colors # only in rtorrent extended

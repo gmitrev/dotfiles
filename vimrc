@@ -1,63 +1,157 @@
-call pathogen#infect()
-syntax on
+set nocompatible              " be iMproved, required
+filetype off                  
+
+" Vundle plugins
+set rtp+=~/.vim/bundle/Vundle.vim " set the runtime path to include Vundle and initialize
+call vundle#begin()
+
+Plugin 'gmarik/Vundle.vim'
+
+Plugin 'L9'                       " required by other plugins
+Plugin 'epeli/slimux'
+
+" Lang-specific
+Plugin 'Markdown'
+Plugin 'tpope/vim-rails'
+Plugin 'tpope/vim-endwise'
+Plugin 'pangloss/vim-javascript'
+Plugin 'elzr/vim-json'
+
+" Syntax
+Plugin 'scrooloose/syntastic'
+Plugin 'tomtom/tcomment_vim'
+Plugin 'surround.vim'             
+Plugin 'vim-scripts/matchit.zip'
+Plugin 'delimitMate.vim'
+
+Bundle "MarcWeber/vim-addon-mw-utils"
+Bundle "tomtom/tlib_vim"
+Bundle "garbas/vim-snipmate"
+Bundle "honza/vim-snippets"
+
+" Util
+Plugin 'kien/ctrlp.vim'
+Plugin 'repeat.vim'
+Plugin 'danro/rename.vim'        " A command and function that basically does a ':saveas <newfile>' then removes the old filename on the disk. 
+Plugin 'rking/ag.vim'
+Plugin 'vimwiki'
+Bundle 'Lokaltog/vim-easymotion'
+
+" Themes
+
+call vundle#end()
 filetype plugin indent on
-filetype indent on
-set nu
-set ts=2
-set bs=2
-set shiftwidth=2
-set autoindent
-set smarttab
-set expandtab
-set showmatch
-set laststatus=2
-set rnu " Relative line numbers
-color plazora
-color seoul256
-color mango
-color lucius
-set background=dark
-set title
+filetype plugin on
 
-nmap <C-S-P> :call <SID>SynStack()<CR>
-function! <SID>SynStack()
-  if !exists("*synstack")
-    return
-  endif
-  echo map(synstack(line('.'), col('.')), 'synIDattr(v:val, "name")')
-endfunc
+set tabstop=2       " Number of spaces that a <Tab> in the file counts for.
+ 
+set shiftwidth=2    " Number of spaces to use for each step of (auto)indent.
+ 
+set expandtab       " Use the appropriate number of spaces to insert a <Tab>.
+                    " Spaces are used in indents with the '>' and '<' commands
+                    " and when 'autoindent' is on. To insert a real tab when
+                    " 'expandtab' is on, use CTRL-V <Tab>.
+ 
+set smarttab        " When on, a <Tab> in front of a line inserts blanks
+                    " according to 'shiftwidth'. 'tabstop' is used in other
+                    " places. A <BS> will delete a 'shiftwidth' worth of space
+                    " at the start of the line.
+ 
+set showcmd         " Show (partial) command in status line.
 
-" Get rid of swap files 
-set nobackup
-set noswapfile
+set number          " Show line numbers.
+
+set showmatch       " When a bracket is inserted, briefly jump to the matching
+                    " one. The jump is only done if the match can be seen on the
+                    " screen. The time to show the match can be set with
+                    " 'matchtime'.
+ 
+set hlsearch        " When there is a previous search pattern, highlight all
+                    " its matches.
+ 
+set incsearch       " While typing a search command, show immediately where the
+                    " so far typed pattern matches.
+ 
+set ignorecase      " Ignore case in search patterns.
+ 
+set smartcase       " Override the 'ignorecase' option if the search pattern
+                    " contains upper case characters.
+ 
+set backspace=2     " Influences the working of <BS>, <Del>, CTRL-W
+                    " and CTRL-U in Insert mode. This is a list of items,
+                    " separated by commas. Each item allows a way to backspace
+                    " over something.
+ 
+set autoindent      " Copy indent from current line when starting a new line
+                    " (typing <CR> in Insert mode or when using the "o" or "O"
+                    " command).
+ 
+set textwidth=79    " Maximum width of text that is being inserted. A longer
+                    " line will be broken after white space to get this width.
+ 
+set formatoptions=c,q,r,t " This is a sequence of letters which describes how
+                    " automatic formatting is to be done.
+                    "
+                    " letter    meaning when present in 'formatoptions'
+                    " ------    ---------------------------------------
+                    " c         Auto-wrap comments using textwidth, inserting
+                    "           the current comment leader automatically.
+                    " q         Allow formatting of comments with "gq".
+                    " r         Automatically insert the current comment leader
+                    "           after hitting <Enter> in Insert mode. 
+                    " t         Auto-wrap text using textwidth (does not apply
+                    "           to comments)
+ 
+set ruler           " Show the line and column number of the cursor position,
+                    " separated by a comma.
+ 
+set background=dark " When set to "dark", Vim will try to use colors that look
+                    " good on a dark background. When set to "light", Vim will
+                    " try to use colors that look good on a light background.
+                    " Any other value is illegal.
+
+ 
+set rnu             " Show relative line numbers
+set title           
+
+set nobackup        " We don't want no backup
+set noswapfile      " Get rid of swap files 
 
 set nocompatible
 
-set term=screen-256color
+set gdefault        " Apply substitutions globally by default
 
-" Show the autocomplete options above the command line
-set wildmenu
+set wildmenu         " make cmdline tab completion similar to bash
+
+set nolist          " Don't show invisible characters
+
+set cul             " highlight current line
+
+set scrolloff=3     " scroll when nearing screen top/end
+
+set pastetoggle=<F2> " External copy/paste
+
+" Open splits in the right or bottom
+set splitbelow
+set splitright
+
+set term=screen-256color " Better colors
+
+syntax on
+
+color lucius
+
+" Alias :W to :w
+ca W w
 
 " Move a line with Alt+[jk]
 nmap <C-k> :m-2<CR>
 nmap <C-j> :m+1<CR>
 
-" Apply substitutions globally
-set gdefault
-let g:agprg="ag --column"
-
-" Alias :W to :w
-ca W w
-
-" Search 
-set ignorecase
-set incsearch
-set hlsearch
-
 " Replace thanks for flying vim with something more useful
 let &titleold=getcwd()
 
-" Remap esc
+" Remap jj toesc
 inoremap jj <Esc>
 
 " Remap leader
@@ -65,38 +159,64 @@ let mapleader=","
 nmap <silent> <leader>ev :e $MYVIMRC<CR>
 nmap <silent> <leader>sv :so $MYVIMRC<CR>
 
+" Make j and k jump visual, not real lines
 nnoremap j gj
 nnoremap k gk
 
-set nolist
-
-" highlight current line
-set cul
 " No need to type 'asdasdasfdgfd' after search to clear highlights
 nmap <silent> <leader><space> :nohlsearch<CR>
 
-" Save folds
-au BufWinLeave * silent! mkview
-au BufWinEnter * silent! loadview
-set viewoptions=folds
-
-set scrolloff=3 " scroll when nearing screen top/end
+" Center on current line when searching
+nmap n nzz
+nmap N Nzz
 
 " Save folds
 au BufWinLeave * silent! mkview
 au BufWinEnter * silent! loadview
 set viewoptions=folds
 
-" Toggle the color line at 80 characters
-function! ColorColumnToggle()
-  if(&colorcolumn == 80)
-    set colorcolumn=0
-  else
-    set colorcolumn=80
-  endif
-endfunction
-nnoremap <C-c> :call ColorColumnToggle()<CR>
+" More useful spacebar
+nmap <space> /
+nmap <c-space> ?
 
+" Swtich between buffers with tab
+noremap <tab> gt<CR>
+noremap <S-tab> gT<CR>
+
+" Slimux bindings
+map <Leader>e :SlimuxREPLSendSelection<CR>
+map <Leader>r :SlimuxREPLSendLine<CR>
+
+" Treat <li> and <p> tags like the block tags they are
+let g:html_indent_tags = 'li\|p'
+
+" Syntax config
+au BufRead,BufNewFile *.md set filetype=markdown
+au BufNewFile,BufRead *.rabl set filetype=ruby
+au BufNewFile,BufRead *.thor set filetype=ruby
+au BufNewFile,BufRead Guardfile set filetype=ruby
+au BufNewFile,BufRead .pryrc set filetype=ruby
+au BufNewFile,BufRead Vagrantfile set filetype=ruby
+au BufNewFile,BufRead *.pp set filetype=ruby
+au BufNewFile,BufRead *.prawn set filetype=ruby
+au BufNewFile,BufRead Appraisals set filetype=ruby
+au BufNewFile,BufRead .psqlrc set filetype=sql
+au BufNewFile,BufRead *.less set filetype=css
+au BufNewFile,BufRead bash_profile set filetype=sh
+
+" Java config
+au Filetype java setl et ts=4 sw=4
+
+" Ctrlp config
+set runtimepath^=~/.vim/bundle/ctrlp.vim
+nnoremap <Leader>p :CtrlPTag<CR>
+nmap <F8> :TagbarToggle<CR>
+
+" Edit/source vimrc bindings
+nmap <silent> <leader>ev :e $MYVIMRC<CR>
+nmap <silent> <leader>sv :so $MYVIMRC<CR>
+
+" Toggle abs/rel linenumbers
 function! NumberToggle()
   if(&relativenumber == 1)
     set number
@@ -106,193 +226,18 @@ function! NumberToggle()
 endfunction
 nnoremap <C-n> :call NumberToggle()<CR>
 
-" Center line when searching
-nmap n nzz
-nmap N Nzz
+let delimitMate_expand_cr = 1
+let delimitMate_jump_expansion = 1
+let delimitMate_smart_matchpairs = 1
 
-nmap <space> /
-nmap <c-space> ?
+" EASYMOTIOn
+let g:EasyMotion_do_mapping = 0 " Disable default mappings
 
-" Swtich between buffers
-noremap <tab> gt<CR>
-noremap <S-tab> gT<CR>
+" Bi-directional find motion
+" Jump to anywhere you want with minimal keystrokes, with just one key binding.
+" nmap s <Plug>(easymotion-s)
+nmap s <Plug>(easymotion-s2)
+let g:EasyMotion_smartcase = 1
+map <Leader>j <Plug>(easymotion-j)
+map <Leader>k <Plug>(easymotion-k)
 
-" External copy/paste
-set pastetoggle=<F2>
-
-map <Leader>so :source ~/.vimrc <CR>
-
-" Insert date
-nmap <F3> a<C-R>=strftime("%Y-%m-%d %a %I:%M %p")<CR><Esc>
-imap <F3> <C-R>=strftime("%Y-%m-%d %a %I:%M %p")<CR>
-
-" Rails specific bindings
-map <Leader>mo :Rmodel 
-map <Leader>mv :RVmodel 
-map <Leader>ms :RSmodel 
-map <Leader>vi :Rview 
-map <Leader>vv :RVview 
-map <Leader>vs :RSview 
-map <Leader>co :Rcontroller 
-map <Leader>cv :RVcontroller 
-map <Leader>cs :RScontroller 
-map <Leader>e :SlimuxREPLSendSelection<CR>
-map <Leader>r :SlimuxREPLSendLine<CR>
-
-" Tests
-map <Leader>t :SlimuxShellRun s spec<CR>
-map <Leader>t :SlimuxShellRun zeus test spec<CR>
-map <Leader>s :SlimuxShellRun !!<CR>
-
-map <leader>gr :topleft :split config/routes.rb<CR>
-
-" Clojure
-let vimclojure#FuzzyIndent=1
-let vimclojure#HighlightBuiltins=1
-let vimclojure#HighlightContrib=1
-let vimclojure#DynamicHighlighting=1
-let vimclojure#ParenRainbow=0
-
-" Start ctrlp
-set runtimepath^=~/.vim/bundle/ctrlp.vim
-" let g:ctrlp_regexp = 1
-
-au VimEnter * highlight clear SignColumn
-" set cc=80
-
-" xmpfilter
-nmap <buffer> <Leader>q <Plug>(xmpfilter-run)
-xmap <buffer> <Leader>q <Plug>(xmpfilter-run)
-imap <buffer> <Leader>q <Plug>(xmpfilter-run)
-
-" nmap <buffer> <Leader> <Plug>(xmpfilter-mark)
-" xmap <buffer> <Leader> <Plug>(xmpfilter-mark)
-" imap <buffer> <Leader> <Plug>(xmpfilter-mark)
-
-" Open splits in the right or bottom
-set splitbelow
-set splitright
-
-" Treat <li> and <p> tags like the block tags they are
-let g:html_indent_tags = 'li\|p'
-
-" Markdown files end in .md
-au BufRead,BufNewFile *.md set filetype=markdown
-au BufNewFile,BufRead *.rabl set filetype=ruby
-
-au Filetype java setl et ts=4 sw=4
-
-" Stuped
-ab polciy policy
-
-"use docx2txt.pl to allow VIm to view the text content of a .docx file directly.
-autocmd BufReadPre *.docx set ro
-autocmd BufReadPost *.docx %!docx2txt
-
-" Gist config
-let g:gist_detect_filetype = 1
-let g:gist_open_browser_after_post = 1
-let g:gist_post_private = 1
-
-" change pwd
-" nnoremap ,cd :lcd %:p:h<CR>:pwd<CR>
-" map <silent> <unique> <Leader>cd <Plug>RooterChangeToRootDirectoy
-autocmd BufWriteCmd *.html,*.css,*.gtpl :call Refresh_firefox()
-function! Refresh_firefox()
-  if &modified
-    write
-    silent !echo  'vimYo = content.window.pageYOffset;
-          \ vimXo = content.window.pageXOffset;
-          \ BrowserReload();
-          \ content.window.scrollTo(vimXo,vimYo);
-          \ repl.quit();'  |
-          \ nc -w 1 localhost 4242 2>&1 > /dev/null
-  endif
-endfunction
-
-nnoremap <Leader>p :CtrlPTag<CR>
-nmap <F8> :TagbarToggle<CR>
-
-" use :w!! to write to a file using sudo if you forgot to 'sudo vim file'
-" (it will prompt for sudo password when writing)
-cmap w!! %!sudo tee > /dev/null %
-
-" HTML, XML {{{
-      augroup FTHtml
-        au!
-        autocmd FileType html,xhtml,wml,cf setlocal ai et sta sw=2 sts=2 " set indent size and stuff
-        autocmd FileType xml,xsd,xslt setlocal ai et sta sw=2 sts=2 ts=2
-        autocmd FileType html setlocal iskeyword+=~
-
-      augroup END
-
-" CSS, SCSS {{{
-      augroup FTCss
-        au!
-        au BufRead,BufNewFile *.scss.erb set ft=scss " when erb-ing sccs, use scss code highlighting
-        autocmd FileType css,scss silent! setlocal omnifunc=csscomplete#CompleteCSS " autocomplete function
-        autocmd FileType css,scss setlocal iskeyword+=-
-        autocmd FileType css,scss setlocal ai et sta sw=2 sts=2
-      augroup END
-" }}}
-"
-"
-
-let g:html_indent_inctags = "html,body,head,tbody"
-let g:html_indent_script1 = "inc"
-let g:html_indent_style1 = "inc"
-
-" XML formatter
-function! DoFormatXML() range
-	" Save the file type
-	let l:origft = &ft
-
-	" Clean the file type
-	set ft=
-
-	" Add fake initial tag (so we can process multiple top-level elements)
-	exe ":let l:beforeFirstLine=" . a:firstline . "-1"
-	if l:beforeFirstLine < 0
-		let l:beforeFirstLine=0
-	endif
-	exe a:lastline . "put ='</PrettyXML>'"
-	exe l:beforeFirstLine . "put ='<PrettyXML>'"
-	exe ":let l:newLastLine=" . a:lastline . "+2"
-	if l:newLastLine > line('$')
-		let l:newLastLine=line('$')
-	endif
-
-	" Remove XML header
-	exe ":" . a:firstline . "," . a:lastline . "s/<\?xml\\_.*\?>\\_s*//e"
-
-	" Recalculate last line of the edited code
-	let l:newLastLine=search('</PrettyXML>')
-
-	" Execute external formatter
-	exe ":silent " . a:firstline . "," . l:newLastLine . "!xmllint --noblanks --format --recover -"
-
-	" Recalculate first and last lines of the edited code
-	let l:newFirstLine=search('<PrettyXML>')
-	let l:newLastLine=search('</PrettyXML>')
-	
-	" Get inner range
-	let l:innerFirstLine=l:newFirstLine+1
-	let l:innerLastLine=l:newLastLine-1
-
-	" Remove extra unnecessary indentation
-	exe ":silent " . l:innerFirstLine . "," . l:innerLastLine "s/^  //e"
-
-	" Remove fake tag
-	exe l:newLastLine . "d"
-	exe l:newFirstLine . "d"
-
-	" Put the cursor at the first line of the edited code
-	exe ":" . l:newFirstLine
-
-	" Restore the file type
-	exe "set ft=" . l:origft
-endfunction
-command! -range=% FormatXML <line1>,<line2>call DoFormatXML()
-
-nmap <silent> <leader>x :%FormatXML<CR>
-vmap <silent> <leader>x :FormatXML<CR>

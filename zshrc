@@ -46,7 +46,7 @@ DISABLE_AUTO_TITLE="true"
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
-plugins=(git archlinux lein lol rails3 gmitrev bundler zeus)
+plugins=(git archlinux lein lol rails3 gmitrev bundler zeus zsh-syntax-highlighting)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -74,7 +74,7 @@ export LC_ALL=en_US.UTF-8
 
 # FINALLY
 # Enable for better looking java apps
-# export _JAVA_OPTIONS='-Dawt.useSystemAAFontSettings=on -Dswing.aatext=true -Dswing.defaultlaf=com.sun.java.swing.plaf.gtk.GTKLookAndFeel'
+export _JAVA_OPTIONS='-Dawt.useSystemAAFontSettings=on -Dswing.aatext=true -Dswing.defaultlaf=com.sun.java.swing.plaf.gtk.GTKLookAndFeel'
 
 # Coursera course
 # test -r ~/code/java/coursera/algo_i/bin/config.sh && source ~/code/java/coursera/algo_i/bin/config.sh

@@ -38,6 +38,7 @@ Plugin 'vimwiki'
 Bundle 'Lokaltog/vim-easymotion'
 
 " Themes
+Plugin 'jonathanfilip/vim-lucius'
 
 call vundle#end()
 filetype plugin indent on

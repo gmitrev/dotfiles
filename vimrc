@@ -29,16 +29,21 @@ Bundle "tomtom/tlib_vim"
 Bundle "garbas/vim-snipmate"
 Bundle "honza/vim-snippets"
 
+" Navigation
+Bundle 'Lokaltog/vim-easymotion'
+Bundle 'haya14busa/vim-easyoperator-line'
+Bundle 'takac/vim-hardtime'
+Plugin 'goldfeld/vim-seek'
+
 " Util
 Plugin 'kien/ctrlp.vim'
 Plugin 'repeat.vim'
 Plugin 'danro/rename.vim'        " A command and function that basically does a ':saveas <newfile>' then removes the old filename on the disk. 
 Plugin 'rking/ag.vim'
 Plugin 'vimwiki'
-Bundle 'Lokaltog/vim-easymotion'
-
 " Themes
 Plugin 'jonathanfilip/vim-lucius'
+Plugin 'ap/vim-css-color'
 
 call vundle#end()
 filetype plugin indent on
@@ -176,9 +181,6 @@ au BufWinLeave * silent! mkview
 au BufWinEnter * silent! loadview
 set viewoptions=folds
 
-" More useful spacebar
-nmap <space> /
-nmap <c-space> ?
 
 " Swtich between buffers with tab
 noremap <tab> gt<CR>
@@ -236,8 +238,18 @@ let g:EasyMotion_do_mapping = 0 " Disable default mappings
 
 " Bi-directional find motion
 " Jump to anywhere you want with minimal keystrokes, with just one key binding.
-" nmap s <Plug>(easymotion-s)
-nmap s <Plug>(easymotion-s2)
+" nmap <space> <Plug>(easymotion-s)
+nmap <space> <Plug>(easymotion-s2)
 let g:EasyMotion_smartcase = 1
 map <Leader>j <Plug>(easymotion-j)
 map <Leader>k <Plug>(easymotion-k)
+
+nmap <Leader><space>  <Plug>(easyoperator-line-select)
+omap <Leader><space>  <Plug>(easyoperator-line-select)
+xmap <Leader><space>  <Plug>(easyoperator-line-select)
+nmap d<Leader><space> <Plug>(easyoperator-line-delete)
+" nmap p<Leader><space> <Plug>(easyoperator-line-yank) ; this slows down p
+" which sucks hard
+
+" Enable HardTime
+autocmd VimEnter * HardTimeOn

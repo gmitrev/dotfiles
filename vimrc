@@ -1,3 +1,5 @@
+scriptencoding utf-8
+set encoding=utf-8
 set nocompatible              " be iMproved, required
 filetype off                  
 
@@ -41,9 +43,15 @@ Plugin 'repeat.vim'
 Plugin 'danro/rename.vim'        " A command and function that basically does a ':saveas <newfile>' then removes the old filename on the disk. 
 Plugin 'rking/ag.vim'
 Plugin 'vimwiki'
+Plugin 'tpope/vim-fugitive'
+Plugin 'mbbill/undotree'
+Plugin 'junegunn/goyo.vim'
+
 " Themes
 Plugin 'jonathanfilip/vim-lucius'
 Plugin 'ap/vim-css-color'
+Bundle 'itchyny/lightline.vim'
+
 
 call vundle#end()
 filetype plugin indent on
@@ -170,7 +178,7 @@ nnoremap j gj
 nnoremap k gk
 
 " No need to type 'asdasdasfdgfd' after search to clear highlights
-nmap <silent> <leader><space> :nohlsearch<CR>
+nmap <silent> <leader>q :nohlsearch<CR>
 
 " Center on current line when searching
 nmap n nzz
@@ -252,4 +260,15 @@ nmap d<Leader><space> <Plug>(easyoperator-line-delete)
 " which sucks hard
 
 " Enable HardTime
-autocmd VimEnter * HardTimeOn
+let g:hardtime_default_on = 0
+
+" UndoTree Config
+nnoremap <F5> :UndotreeToggle<cr>
+if has("persistent_undo")
+    set undofile
+    set undodir=~/.undodir
+    set undolevels=1000
+endif
+
+" Enable lightline
+set laststatus=2

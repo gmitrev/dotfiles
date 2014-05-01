@@ -178,7 +178,7 @@ nnoremap j gj
 nnoremap k gk
 
 " No need to type 'asdasdasfdgfd' after search to clear highlights
-nmap <silent> <leader><space> :nohlsearch<CR>
+nmap <silent> <leader>q :nohlsearch<CR>
 
 " Center on current line when searching
 nmap n nzz

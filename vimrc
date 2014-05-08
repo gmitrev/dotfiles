@@ -18,6 +18,7 @@ Plugin 'tpope/vim-rails'
 Plugin 'tpope/vim-endwise'
 Plugin 'pangloss/vim-javascript'
 Plugin 'elzr/vim-json'
+Plugin 'ecomba/vim-ruby-refactoring'
 
 " Syntax
 Plugin 'scrooloose/syntastic'

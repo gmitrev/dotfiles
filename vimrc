@@ -27,6 +27,7 @@ Plugin 'surround.vim'
 Plugin 'vim-scripts/matchit.zip'
 Plugin 'delimitMate.vim'
 Plugin 'kien/rainbow_parentheses.vim'
+Plugin 'vim-scripts/HTML-AutoCloseTag'
 
 
 Bundle "MarcWeber/vim-addon-mw-utils"

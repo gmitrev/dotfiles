@@ -15,6 +15,7 @@ Plugin 'epeli/slimux'
 " Lang-specific
 Plugin 'Markdown'
 Plugin 'tpope/vim-rails'
+Plugin 'vim-ruby/vim-ruby'
 Plugin 'tpope/vim-endwise'
 Plugin 'pangloss/vim-javascript'
 Plugin 'elzr/vim-json'
@@ -28,6 +29,10 @@ Plugin 'vim-scripts/matchit.zip'
 Plugin 'delimitMate.vim'
 Plugin 'kien/rainbow_parentheses.vim'
 Plugin 'vim-scripts/HTML-AutoCloseTag'
+
+" Source
+Plugin 'vim-scripts/IndentAnything'
+Plugin 'vim-scripts/ruby.vim--IGREQUE'
 
 
 Bundle "MarcWeber/vim-addon-mw-utils"
@@ -218,6 +223,8 @@ au BufNewFile,BufRead Appraisals set filetype=ruby
 au BufNewFile,BufRead .psqlrc set filetype=sql
 au BufNewFile,BufRead *.less set filetype=css
 au BufNewFile,BufRead bash_profile set filetype=sh
+
+au FileType eruby so ~/.vim/bundle/HTML-AutoCloseTag/ftplugin/html_autoclosetag.vim
 
 " Java config
 au Filetype java setl et ts=4 sw=4

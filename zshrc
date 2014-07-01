@@ -22,7 +22,7 @@ unset RUBY_HEAP_MIN_SLOTS
 # Uncomment following line if you want to disable autosetting terminal title.
 DISABLE_AUTO_TITLE="true"
 
-plugins=(git archlinux lein lol rails3 gmitrev bundler zeus zsh-syntax-highlighting)
+plugins=(git archlinux lein lol rails gmitrev bundler zeus zsh-syntax-highlighting)
 
 source $ZSH/oh-my-zsh.sh
 

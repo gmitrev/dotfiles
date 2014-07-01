@@ -309,4 +309,4 @@ set listchars=tab:▸\ ,trail:·
 set list
 
 " Remove trailing spaces on save
-autocmd BufWritePre <buffer> :%s/\s\+$//e
+autocmd BufWritePre * :%s/\s\+$//e

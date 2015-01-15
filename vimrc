@@ -14,13 +14,16 @@ Plugin 'epeli/slimux'
 
 " Lang-specific
 Plugin 'Markdown'
-Plugin 'tpope/vim-rails'
-Plugin 'vim-ruby/vim-ruby'
 Plugin 'tpope/vim-endwise'
 Plugin 'pangloss/vim-javascript'
 Plugin 'elzr/vim-json'
-Plugin 'ecomba/vim-ruby-refactoring'
 Plugin 'kchmck/vim-coffee-script'
+
+" Ruby
+Plugin 'tpope/vim-rails'
+Plugin 'vim-ruby/vim-ruby'
+Plugin 'ecomba/vim-ruby-refactoring'
+Plugin 'vim-scripts/ruby.vim--IGREQUE'
 
 " Rust
 Plugin 'wting/rust.vim'
@@ -35,14 +38,12 @@ Plugin 'scrooloose/syntastic'
 Plugin 'tomtom/tcomment_vim'
 Plugin 'surround.vim'
 Plugin 'vim-scripts/matchit.zip'
-"Plugin 'delimitMate.vim'
 Plugin 'jiangmiao/auto-pairs'
 Plugin 'kien/rainbow_parentheses.vim'
 Plugin 'vim-scripts/HTML-AutoCloseTag'
 
 " Source
 Plugin 'vim-scripts/IndentAnything'
-Plugin 'vim-scripts/ruby.vim--IGREQUE'
 
 Bundle "MarcWeber/vim-addon-mw-utils"
 Bundle "tomtom/tlib_vim"
@@ -63,8 +64,6 @@ Plugin 'danro/rename.vim'        " A command and function that basically does a 
 Plugin 'rking/ag.vim'
 Plugin 'vimwiki'
 Plugin 'tpope/vim-fugitive'
-Plugin 'mbbill/undotree'
-Plugin 'junegunn/goyo.vim'
 
 " Text transformation
 Plugin 'godlygeek/tabular'        " Vim script for text filtering and alignment
@@ -73,7 +72,6 @@ Plugin 'godlygeek/tabular'        " Vim script for text filtering and alignment
 Plugin 'jonathanfilip/vim-lucius'
 Plugin 'ap/vim-css-color'
 Bundle 'itchyny/lightline.vim'
-
 
 call vundle#end()
 filetype plugin indent on
@@ -280,19 +278,6 @@ nmap <Leader><space>  <Plug>(easyoperator-line-select)
 omap <Leader><space>  <Plug>(easyoperator-line-select)
 xmap <Leader><space>  <Plug>(easyoperator-line-select)
 nmap d<Leader><space> <Plug>(easyoperator-line-delete)
-" nmap p<Leader><space> <Plug>(easyoperator-line-yank) ; this slows down p
-" which sucks hard
-
-" Enable HardTime
-let g:hardtime_default_on = 0
-
-" UndoTree Config
-nnoremap <F5> :UndotreeToggle<cr>
-if has("persistent_undo")
-    set undofile
-    set undodir=~/.undodir
-    set undolevels=1000
-endif
 
 " Enable lightline
 set laststatus=2
@@ -318,13 +303,10 @@ let g:rbpt_colorpairs = [
     \ ]
 let g:rbpt_max = 11
 
-" set listchars=tab:▸\ ,trail:·
-" set list
-
 " Remove trailing spaces on save
 autocmd BufWritePre * :%s/\s\+$//e
 
-let g:ctrlp_custom_ignore = 'tmp'
+let g:ctrlp_custom_ignore = '\v[\/](coverage|tmp|out)$'
 
 set list listchars=precedes:<,extends:>
 set list listchars=tab:>-,trail:·,precedes:<,extends:>

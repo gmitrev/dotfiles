@@ -19,7 +19,7 @@ max_uploads = 25
 port_range = 6881-6999 ; ports to use for listening
 
 # Start opening ports at a random position within the port range.
-port_random = yes 
+port_random = yes
 
 check_hash = yes ; check hash on finished torrents
 
@@ -49,11 +49,3 @@ schedule = watch_directory_3,5,5,"load_start=~/sync/torrents/watch/videos/*.torr
 schedule = watch_directory_4,5,5,"load_start=~/sync/torrents/watch/games/*.torrent,d.set_directory=~/Downloads/games"
 schedule = watch_directory_5,5,5,"load_start=~/sync/torrents/watch/books/*.torrent,d.set_directory=~/Downloads/books"
 schedule = untied_directory,5,5,stop_untied= ; stop torrents once removed from the client
-
-# Colors # only in rtorrent extended
-## Colors: 0 = black 1 = red 2 = green 3 = yellow 4 = blue 5 = magenta 6 = cyan 7 = white
-
-#done_fg_color = 6
-#done_bg_color
-#active_fg_color = 7
-#active_bg_color

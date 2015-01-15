@@ -17,6 +17,7 @@ export RUBY_HEAP_FREE_MIN=100000
 export RUBY_HEAP_SLOTS_INCREMENT=300000
 export RUBY_HEAP_SLOTS_GROWTH_FACTOR=1
 export RUBY_GC_MALLOC_LIMIT=79000000
+export DISPLAY=:0
 unset RUBY_HEAP_MIN_SLOTS
 
 # Uncomment following line if you want to disable autosetting terminal title.
@@ -51,3 +52,4 @@ export _JAVA_OPTIONS='-Dawt.useSystemAAFontSettings=on -Dswing.aatext=true -Dswi
 
 # Add cabal binaries to path
 export PATH="$HOME/.cabal/bin:$PATH"
+unset RUBY_VERSION

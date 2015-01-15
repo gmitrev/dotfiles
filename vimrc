@@ -20,13 +20,23 @@ Plugin 'tpope/vim-endwise'
 Plugin 'pangloss/vim-javascript'
 Plugin 'elzr/vim-json'
 Plugin 'ecomba/vim-ruby-refactoring'
+Plugin 'kchmck/vim-coffee-script'
+
+" Rust
+Plugin 'wting/rust.vim'
+
+" Clj
+Plugin 'tpope/vim-fireplace'
+Plugin 'guns/vim-clojure-static'
+Plugin 'guns/vim-clojure-highlight'
 
 " Syntax
 Plugin 'scrooloose/syntastic'
 Plugin 'tomtom/tcomment_vim'
 Plugin 'surround.vim'
 Plugin 'vim-scripts/matchit.zip'
-Plugin 'delimitMate.vim'
+"Plugin 'delimitMate.vim'
+Plugin 'jiangmiao/auto-pairs'
 Plugin 'kien/rainbow_parentheses.vim'
 Plugin 'vim-scripts/HTML-AutoCloseTag'
 
@@ -34,11 +44,11 @@ Plugin 'vim-scripts/HTML-AutoCloseTag'
 Plugin 'vim-scripts/IndentAnything'
 Plugin 'vim-scripts/ruby.vim--IGREQUE'
 
-
 Bundle "MarcWeber/vim-addon-mw-utils"
 Bundle "tomtom/tlib_vim"
 Bundle "garbas/vim-snipmate"
 Bundle "honza/vim-snippets"
+Plugin 'ervandew/supertab'
 
 " Navigation
 Bundle 'Lokaltog/vim-easymotion'
@@ -55,6 +65,9 @@ Plugin 'vimwiki'
 Plugin 'tpope/vim-fugitive'
 Plugin 'mbbill/undotree'
 Plugin 'junegunn/goyo.vim'
+
+" Text transformation
+Plugin 'godlygeek/tabular'        " Vim script for text filtering and alignment
 
 " Themes
 Plugin 'jonathanfilip/vim-lucius'
@@ -305,8 +318,21 @@ let g:rbpt_colorpairs = [
     \ ]
 let g:rbpt_max = 11
 
-set listchars=tab:▸\ ,trail:·
-set list
+" set listchars=tab:▸\ ,trail:·
+" set list
 
 " Remove trailing spaces on save
 autocmd BufWritePre * :%s/\s\+$//e
+
+let g:ctrlp_custom_ignore = 'tmp'
+
+set list listchars=precedes:<,extends:>
+set list listchars=tab:>-,trail:·,precedes:<,extends:>
+
+" Tabular mappings
+nmap <Leader>a= :Tabularize /=<CR>
+vmap <Leader>a= :Tabularize /=<CR>
+nmap <Leader>a: :Tabularize /:\zs<CR>
+vmap <Leader>a: :Tabularize /:\zs<CR>
+nmap <Leader>a> :Tabularize /=><CR>
+vmap <Leader>a> :Tabularize /=><CR>

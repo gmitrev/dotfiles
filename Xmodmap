@@ -4,3 +4,4 @@ add Control = Control_L
 remove Control = Control_R
 keysym Control_R = Caps_Lock
 add Lock = Caps_Lock
+keycode 37 = NoSymbol

@@ -1,7 +1,7 @@
 if defined?(PryDebugger)
-  Pry.commands.alias_command 'c', 'continue'
-  Pry.commands.alias_command 's', 'step'
-  Pry.commands.alias_command 'n', 'next'
-  Pry.commands.alias_command 'f', 'finish'
+  Pry.commands.alias_command 'dc', 'continue'
+  Pry.commands.alias_command 'ds', 'step'
+  Pry.commands.alias_command 'dn', 'next'
+  Pry.commands.alias_command 'df', 'finish'
 end
 

@@ -1,0 +1,18 @@
+Config { font = "xft:Ubuntu Mono:Medium:size=11:antialias=true"
+       , bgColor = "#1b1b1b"
+       , fgColor = "#657b83"
+       , position = TopW L 88
+       , lowerOnStart = True
+       , border = NoBorder
+       , commands = [ Run Weather "EGPF" ["-t"," <tempC>C","-L","64","-H","77","--normal","green","--high","red","--low","lightblue"] 36000
+                    , Run Network "eth0" ["-L","0","-H","32","--normal","green","--high","red"] 10
+                    , Run Cpu ["-L","3","-H","50","--normal","green","--high","red"] 10
+                    , Run Memory ["-t","Mem: <usedratio>%"] 10
+                    , Run Date "<fc=#93a1a1>%a %b %_d %Y %H:%M</fc>" "date" 10
+                    , Run StdinReader
+                    , Run Com "setxkbmap -query | grep 'layout' | awk '{print $2}'"  [] "keyboard" 1
+                    ]
+       , sepChar = "%"
+       , alignSep = "}{"
+       , template = "%StdinReader% }{ %keyboard% %cpu%  %memory%  %eth0% |%EGPF% | %date% "
+       }

@@ -26,12 +26,12 @@ Plugin 'ecomba/vim-ruby-refactoring'
 Plugin 'vim-scripts/ruby.vim--IGREQUE'
 
 " Rust
-Plugin 'wting/rust.vim'
+" Plugin 'wting/rust.vim'
 
 " Clj
-Plugin 'tpope/vim-fireplace'
-Plugin 'guns/vim-clojure-static'
-Plugin 'guns/vim-clojure-highlight'
+" Plugin 'tpope/vim-fireplace'
+" Plugin 'guns/vim-clojure-static'
+" Plugin 'guns/vim-clojure-highlight'
 
 " Syntax
 Plugin 'scrooloose/syntastic'
@@ -64,9 +64,11 @@ Plugin 'danro/rename.vim'        " A command and function that basically does a 
 Plugin 'rking/ag.vim'
 Plugin 'vimwiki'
 Plugin 'tpope/vim-fugitive'
+Plugin 'gregsexton/gitv'
 
 " Text transformation
 Plugin 'godlygeek/tabular'        " Vim script for text filtering and alignment
+Plugin 'AndrewRadev/splitjoin.vim'
 
 " Themes
 Plugin 'jonathanfilip/vim-lucius'
@@ -318,3 +320,13 @@ nmap <Leader>a: :Tabularize /:\zs<CR>
 vmap <Leader>a: :Tabularize /:\zs<CR>
 nmap <Leader>a> :Tabularize /=><CR>
 vmap <Leader>a> :Tabularize /=><CR>
+
+let g:syntastic_ruby_checkers = ['mri', 'rubocop']
+
+" Highlight debugging statements
+au BufEnter *.rb syn match error contained "\<binding.pry\>"
+au BufEnter *.rb syn match error contained "\<debugger\>"
+
+autocmd Filetype gitcommit setlocal spell textwidth=72
+
+cnoremap w!! %!sudo tee > /dev/null %

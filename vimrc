@@ -57,6 +57,7 @@ Bundle 'haya14busa/vim-easyoperator-line'
 Bundle 'takac/vim-hardtime'
 Plugin 'goldfeld/vim-seek'
 Plugin 'scrooloose/nerdtree'
+Bundle 'jistr/vim-nerdtree-tabs'
 
 " Util
 Plugin 'kien/ctrlp.vim'
@@ -332,11 +333,5 @@ autocmd Filetype gitcommit setlocal spell textwidth=72
 
 cnoremap w!! %!sudo tee > /dev/null %
 
-map <F4> :NERDTreeToggle<CR>
-function! StartUp()
-    if 0 == argc()
-        NERDTree
-    end
-endfunction
-
-autocmd VimEnter * call StartUp()
+map <F4> <plug>NERDTreeTabsToggle<CR>
+let g:nerdtree_tabs_open_on_console_startup=1

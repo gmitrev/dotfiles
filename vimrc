@@ -56,6 +56,7 @@ Bundle 'Lokaltog/vim-easymotion'
 Bundle 'haya14busa/vim-easyoperator-line'
 Bundle 'takac/vim-hardtime'
 Plugin 'goldfeld/vim-seek'
+Plugin 'scrooloose/nerdtree'
 
 " Util
 Plugin 'kien/ctrlp.vim'
@@ -330,3 +331,12 @@ au BufEnter *.rb syn match error contained "\<debugger\>"
 autocmd Filetype gitcommit setlocal spell textwidth=72
 
 cnoremap w!! %!sudo tee > /dev/null %
+
+map <F4> :NERDTreeToggle<CR>
+function! StartUp()
+    if 0 == argc()
+        NERDTree
+    end
+endfunction
+
+autocmd VimEnter * call StartUp()

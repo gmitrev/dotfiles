@@ -334,4 +334,5 @@ autocmd Filetype gitcommit setlocal spell textwidth=72
 cnoremap w!! %!sudo tee > /dev/null %
 
 map <F4> <plug>NERDTreeTabsToggle<CR>
+nmap <F5> :NERDTreeFind<CR>
 let g:nerdtree_tabs_open_on_console_startup=1

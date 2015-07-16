@@ -17,13 +17,12 @@ export RUBY_HEAP_FREE_MIN=100000
 export RUBY_HEAP_SLOTS_INCREMENT=300000
 export RUBY_HEAP_SLOTS_GROWTH_FACTOR=1
 export RUBY_GC_MALLOC_LIMIT=79000000
-export DISPLAY=:0
 unset RUBY_HEAP_MIN_SLOTS
 
 # Uncomment following line if you want to disable autosetting terminal title.
 DISABLE_AUTO_TITLE="true"
 
-plugins=(git archlinux lein lol rails gmitrev bundler zeus zsh-syntax-highlighting)
+plugins=(git archlinux lein lol rails3 gmitrev bundler zeus zsh-syntax-highlighting)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -48,8 +47,19 @@ export LC_ALL=en_US.UTF-8
 
 # FINALLY
 # Enable for better looking java apps
+# export _JAVA_OPTIONS='-Dawt.useSystemAAFontSettings=on -Dswing.aatext=true -Dswing.defaultlaf=javax.swing.plaf.nimbus.NimbusLookAndFeel'
 export _JAVA_OPTIONS='-Dawt.useSystemAAFontSettings=on -Dswing.aatext=true -Dswing.defaultlaf=com.sun.java.swing.plaf.gtk.GTKLookAndFeel'
 
 # Add cabal binaries to path
 export PATH="$HOME/.cabal/bin:$PATH"
-unset RUBY_VERSION
+
+source ~/.bin/tmuxinator.zsh
+
+# OPAM configuration
+. /home/georgi/.opam/opam-init/init.zsh > /dev/null 2> /dev/null || true
+
+
+export LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:/usr/local/lib
+
+alias grep="/usr/bin/grep $GREP_OPTIONS"
+unset GREP_OPTIONS

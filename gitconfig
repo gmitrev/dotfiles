@@ -1,0 +1,7 @@
+[user]
+  name = gmitrev
+  email = gvmitrev@gmail.com
+[github]
+  user = gmitrev
+[branch]
+  autosetuprebase = always

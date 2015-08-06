@@ -5,3 +5,5 @@
   user = gmitrev
 [branch]
   autosetuprebase = always
+[push]
+  default = current

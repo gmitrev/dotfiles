@@ -29,9 +29,9 @@ Plugin 'vim-scripts/ruby.vim--IGREQUE'
 " Plugin 'wting/rust.vim'
 
 " Clj
-" Plugin 'tpope/vim-fireplace'
-" Plugin 'guns/vim-clojure-static'
-" Plugin 'guns/vim-clojure-highlight'
+Plugin 'tpope/vim-fireplace'
+Plugin 'guns/vim-clojure-static'
+Plugin 'guns/vim-clojure-highlight'
 
 " Syntax
 Plugin 'scrooloose/syntastic'

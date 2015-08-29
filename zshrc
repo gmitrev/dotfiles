@@ -12,6 +12,10 @@ alias glog="git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset
 
 alias :q='exit'
 
+alias crb='cd ~/code/rb'
+alias crkt='cd ~/code/rkt'
+alias cclj='cd ~/code/clj'
+
 export RUBY_GC_HEAP_INIT_SLOTS=800000
 export RUBY_HEAP_FREE_MIN=100000
 export RUBY_HEAP_SLOTS_INCREMENT=300000

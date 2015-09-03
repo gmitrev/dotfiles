@@ -329,6 +329,7 @@ let g:syntastic_ruby_checkers = ['mri', 'rubocop']
 " Highlight debugging statements
 au BufEnter *.rb syn match error contained "\<binding.pry\>"
 au BufEnter *.rb syn match error contained "\<debugger\>"
+au BufEnter *.rb syn match error contained "\<byebug\>"
 
 autocmd Filetype gitcommit setlocal spell textwidth=72
 

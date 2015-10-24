@@ -42,10 +42,12 @@ Plugin 'vim-scripts/matchit.zip'
 Plugin 'jiangmiao/auto-pairs'
 Plugin 'kien/rainbow_parentheses.vim'
 Plugin 'vim-scripts/HTML-AutoCloseTag'
+Plugin 'slim-template/vim-slim'
 
 " Source
 Plugin 'vim-scripts/IndentAnything'
 
+" Snippets
 Bundle "MarcWeber/vim-addon-mw-utils"
 Bundle "tomtom/tlib_vim"
 Bundle "garbas/vim-snipmate"
@@ -60,12 +62,14 @@ Plugin 'goldfeld/vim-seek'
 Plugin 'scrooloose/nerdtree'
 Bundle 'jistr/vim-nerdtree-tabs'
 
-" Util
+" File navigation
+Plugin 'rking/ag.vim'
 Plugin 'kien/ctrlp.vim'
+
+" Util
 Plugin 'repeat.vim'
 Plugin 'danro/rename.vim'        " A command and function that basically does a ':saveas <newfile>' then removes the old filename on the disk.
-Plugin 'rking/ag.vim'
-Plugin 'vimwiki'
+" Plugin 'vimwiki'
 Plugin 'tpope/vim-fugitive'
 Plugin 'gregsexton/gitv'
 
@@ -324,7 +328,11 @@ vmap <Leader>a: :Tabularize /:\zs<CR>
 nmap <Leader>a> :Tabularize /=><CR>
 vmap <Leader>a> :Tabularize /=><CR>
 
+" syntastic config
+
+let g:syntastic_check_on_open = 1
 let g:syntastic_ruby_checkers = ['mri', 'rubocop']
+let g:syntastic_ruby_rubocop_exec = '/home/georgi/bin/rubocop.sh'
 
 " Highlight debugging statements
 au BufEnter *.rb syn match error contained "\<binding.pry\>"

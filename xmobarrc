@@ -3,16 +3,40 @@ Config { font = "xft:Ubuntu Mono:Medium:size=11:antialias=true"
        , fgColor = "#657b83"
        , position = TopW L 88
        , lowerOnStart = True
+       , allDesktops = True
        , border = NoBorder
-       , commands = [ Run Weather "EGPF" ["-t"," <tempC>C","-L","64","-H","77","--normal","green","--high","red","--low","lightblue"] 36000
-                    , Run Network "eth0" ["-L","0","-H","32","--normal","green","--high","red"] 10
+       , commands = [ Run Weather "EGPF" ["-t"," <tempC>C","-L","64","-H","77","--normal","green","--high","red","--low","lightblue"] 180000
                     , Run Cpu ["-L","3","-H","50","--normal","green","--high","red"] 10
                     , Run Memory ["-t","Mem: <usedratio>%"] 10
                     , Run Date "<fc=#93a1a1>%a %b %_d %Y %H:%M</fc>" "date" 10
                     , Run StdinReader
                     , Run Com "setxkbmap -query | grep 'layout' | awk '{print $2}'"  [] "keyboard" 1
+                    , Run Battery        [ "--template" , "Batt: <acstatus>"
+                                                 , "--Low"      , "10"        -- units: %
+                                                 , "--High"     , "80"        -- units: %
+                                                 , "--low"      , "darkred"
+                                                 , "--normal"   , "darkorange"
+                                                 , "--high"     , "darkgreen"
+
+                                                 , "--" -- battery specific options
+                                                           -- discharging status
+                                                           , "-o"	, "<left>% (<timeleft>)"
+                                                           -- AC "on" status
+                                                           , "-O"	, "<fc=#dAA520>Charging</fc>"
+                                                           -- charged status
+                                                           , "-i"	, "<fc=#006000>Charged</fc>"
+                                                 ] 50
+
+                    -- time and date indicator
+                    --   (%F = y-m-d date, %a = day of week, %T = h:m:s time)
+                    -- , Run Date           "<fc=#ABABAB>%F (%a) %T</fc>" "date" 10
+
+                    -- keyboard layout indicator
+                    , Run Kbd            [ ("bg(phonetic)" , "<fc=#006000>bg</fc>")
+                                         , ("us"         , "us")
+                                         ]
                     ]
        , sepChar = "%"
        , alignSep = "}{"
-       , template = "%StdinReader% }{ %keyboard% %cpu%  %memory%  %eth0% |%EGPF% | %date% "
+       , template = "%StdinReader% }{ %kbd% | %cpu%  %memory%  | %battery% |%EGPF% | %date% "
        }

@@ -57,7 +57,7 @@ export _JAVA_OPTIONS='-Dawt.useSystemAAFontSettings=on -Dswing.aatext=true -Dswi
 # Add cabal binaries to path
 export PATH="$HOME/.cabal/bin:$PATH"
 
-source ~/.bin/tmuxinator.zsh
+# source ~/.bin/tmuxinator.zsh
 
 # OPAM configuration
 . /home/georgi/.opam/opam-init/init.zsh > /dev/null 2> /dev/null || true
@@ -67,3 +67,4 @@ export LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:/usr/local/lib
 
 alias grep="/usr/bin/grep $GREP_OPTIONS"
 unset GREP_OPTIONS
+source /usr/share/doc/pkgfile/command-not-found.zsh

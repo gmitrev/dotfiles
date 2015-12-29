@@ -13,6 +13,7 @@ alias glog="git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset
 alias :q='exit'
 
 alias crb='cd ~/code/rb'
+alias cdrb='cd ~/code-rb/rb/receipt-bank/application'
 alias crkt='cd ~/code/rkt'
 alias cclj='cd ~/code/clj'
 
@@ -26,7 +27,7 @@ unset RUBY_HEAP_MIN_SLOTS
 # Uncomment following line if you want to disable autosetting terminal title.
 DISABLE_AUTO_TITLE="true"
 
-plugins=(git archlinux lein lol rails3 gmitrev bundler zeus zsh-syntax-highlighting)
+plugins=(rails git archlinux lein lol rails3 gmitrev bundler zeus zsh-syntax-highlighting)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -35,8 +36,8 @@ export PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/ga
 export PATH=/usr/lib/lightdm/lightdm:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/home/georgi/bin
 
 #rbenv
-export PATH="$HOME/.rbenv/bin:$PATH"
-eval "$(rbenv init -)"
+# export PATH="$HOME/.rbenv/bin:$PATH"
+# eval "$(rbenv init -)"
 
 export EDITOR=vim
 export force_s3tc_enable=true
@@ -68,3 +69,6 @@ export LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:/usr/local/lib
 alias grep="/usr/bin/grep $GREP_OPTIONS"
 unset GREP_OPTIONS
 source /usr/share/doc/pkgfile/command-not-found.zsh
+
+source /usr/share/chruby/chruby.sh
+source /usr/share/chruby/auto.sh

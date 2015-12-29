@@ -1,6 +1,6 @@
 scriptencoding utf-8
-set encoding=utf-8
 set nocompatible              " be iMproved, required
+set encoding=utf-8
 filetype off
 
 " Vundle plugins
@@ -13,7 +13,7 @@ Plugin 'L9'                       " required by other plugins
 Plugin 'epeli/slimux'
 
 " Lang-specific
-Plugin 'Markdown'
+Bundle 'Markdown'
 Plugin 'tpope/vim-endwise'
 Plugin 'pangloss/vim-javascript'
 Plugin 'elzr/vim-json'
@@ -22,26 +22,23 @@ Plugin 'kchmck/vim-coffee-script'
 " Ruby
 Plugin 'tpope/vim-rails'
 Plugin 'vim-ruby/vim-ruby'
-Plugin 'ecomba/vim-ruby-refactoring'
 Plugin 'vim-scripts/ruby.vim--IGREQUE'
-
-" Rust
-" Plugin 'wting/rust.vim'
+Plugin 'ecomba/vim-ruby-refactoring'
 
 " Clj
 Plugin 'tpope/vim-fireplace'
 Plugin 'guns/vim-clojure-static'
 Plugin 'guns/vim-clojure-highlight'
 
+" Git
+Plugin 'tpope/vim-fugitive'
+
 " Syntax
 Plugin 'scrooloose/syntastic'
 Plugin 'tomtom/tcomment_vim'
-Plugin 'surround.vim'
+Bundle 'surround.vim'
 Plugin 'vim-scripts/matchit.zip'
-"Plugin 'delimitMate.vim'
 Plugin 'jiangmiao/auto-pairs'
-Plugin 'kien/rainbow_parentheses.vim'
-Plugin 'vim-scripts/HTML-AutoCloseTag'
 Plugin 'slim-template/vim-slim'
 
 " Source
@@ -56,82 +53,64 @@ Plugin 'ervandew/supertab'
 
 " Navigation
 Bundle 'Lokaltog/vim-easymotion'
-Bundle 'haya14busa/vim-easyoperator-line'
-Bundle 'takac/vim-hardtime'
-Plugin 'goldfeld/vim-seek'
 Plugin 'scrooloose/nerdtree'
 Bundle 'jistr/vim-nerdtree-tabs'
 
 " File navigation
-Plugin 'rking/ag.vim'
-Plugin 'kien/ctrlp.vim'
+Plugin 'rking/ag.vim'            " Search in files
+Plugin 'kien/ctrlp.vim'          " Quick file navigation
+Plugin 'JazzCore/ctrlp-cmatcher' " Better matching algorithm for ctrlp. Requires additional installation
 
 " Util
-Plugin 'repeat.vim'
 Plugin 'danro/rename.vim'        " A command and function that basically does a ':saveas <newfile>' then removes the old filename on the disk.
-" Plugin 'vimwiki'
-Plugin 'tpope/vim-fugitive'
-Plugin 'gregsexton/gitv'
+Plugin 'jodosha/vim-devnotes'
 
 " Text transformation
 Plugin 'godlygeek/tabular'        " Vim script for text filtering and alignment
 Plugin 'AndrewRadev/splitjoin.vim'
+Plugin 'terryma/vim-multiple-cursors'
 
 " Themes
 Plugin 'jonathanfilip/vim-lucius'
 Plugin 'ap/vim-css-color'
-Bundle 'itchyny/lightline.vim'
+Plugin 'itchyny/lightline.vim'
 
 call vundle#end()
 filetype plugin indent on
 filetype plugin on
 
 set tabstop=2       " Number of spaces that a <Tab> in the file counts for.
-
 set shiftwidth=2    " Number of spaces to use for each step of (auto)indent.
-
 set expandtab       " Use the appropriate number of spaces to insert a <Tab>.
                     " Spaces are used in indents with the '>' and '<' commands
                     " and when 'autoindent' is on. To insert a real tab when
                     " 'expandtab' is on, use CTRL-V <Tab>.
-
 set smarttab        " When on, a <Tab> in front of a line inserts blanks
                     " according to 'shiftwidth'. 'tabstop' is used in other
                     " places. A <BS> will delete a 'shiftwidth' worth of space
                     " at the start of the line.
-
 set showcmd         " Show (partial) command in status line.
-
 set number          " Show line numbers.
-
 set showmatch       " When a bracket is inserted, briefly jump to the matching
                     " one. The jump is only done if the match can be seen on the
                     " screen. The time to show the match can be set with
                     " 'matchtime'.
-
 set hlsearch        " When there is a previous search pattern, highlight all
                     " its matches.
-
 set incsearch       " While typing a search command, show immediately where the
                     " so far typed pattern matches.
-
 set ignorecase      " Ignore case in search patterns.
-
 set smartcase       " Override the 'ignorecase' option if the search pattern
                     " contains upper case characters.
-
 set backspace=2     " Influences the working of <BS>, <Del>, CTRL-W
                     " and CTRL-U in Insert mode. This is a list of items,
                     " separated by commas. Each item allows a way to backspace
                     " over something.
-
 set autoindent      " Copy indent from current line when starting a new line
                     " (typing <CR> in Insert mode or when using the "o" or "O"
                     " command).
-
 set textwidth=79    " Maximum width of text that is being inserted. A longer
                     " line will be broken after white space to get this width.
-
 set formatoptions=c,q,r,t " This is a sequence of letters which describes how
                     " automatic formatting is to be done.
                     "
@@ -144,39 +123,27 @@ set formatoptions=c,q,r,t " This is a sequence of letters which describes how
                     "           after hitting <Enter> in Insert mode.
                     " t         Auto-wrap text using textwidth (does not apply
                     "           to comments)
-
 set ruler           " Show the line and column number of the cursor position,
                     " separated by a comma.
-
 set background=dark " When set to "dark", Vim will try to use colors that look
                     " good on a dark background. When set to "light", Vim will
                     " try to use colors that look good on a light background.
                     " Any other value is illegal.
-
-
-set rnu             " Show relative line numbers
+" set rnu             " Show relative line numbers
 set title
-
 set nobackup        " We don't want no backup
 set noswapfile      " Get rid of swap files
-
 set nocompatible
-
 set gdefault        " Apply substitutions globally by default
-
 set wildmenu         " make cmdline tab completion similar to bash
-
 set nolist          " Don't show invisible characters
-
 set cul             " highlight current line
-
 set scrolloff=3     " scroll when nearing screen top/end
-
 set pastetoggle=<F2> " External copy/paste
-
 " Open splits in the right or bottom
 set splitbelow
 set splitright
+set cursorline      " Highlight current line
 
 set term=screen-256color " Better colors
 
@@ -194,7 +161,7 @@ nmap <C-j> :m+1<CR>
 " Replace thanks for flying vim with something more useful
 let &titleold=getcwd()
 
-" Remap jj toesc
+" Remap jj to esc
 inoremap jj <Esc>
 
 " Remap leader
@@ -217,7 +184,6 @@ nmap N Nzz
 au BufWinLeave * silent! mkview
 au BufWinEnter * silent! loadview
 set viewoptions=folds
-
 
 " Swtich between buffers with tab
 noremap <tab> gt<CR>
@@ -243,7 +209,6 @@ au BufNewFile,BufRead Appraisals set filetype=ruby
 au BufNewFile,BufRead .psqlrc set filetype=sql
 au BufNewFile,BufRead *.less set filetype=css
 au BufNewFile,BufRead bash_profile set filetype=sh
-
 au FileType eruby so ~/.vim/bundle/HTML-AutoCloseTag/ftplugin/html_autoclosetag.vim
 
 " Java config
@@ -253,6 +218,8 @@ au Filetype java setl et ts=4 sw=4
 set runtimepath^=~/.vim/bundle/ctrlp.vim
 nnoremap <Leader>p :CtrlPTag<CR>
 nmap <F8> :TagbarToggle<CR>
+let g:ctrlp_match_func = {'match' : 'matcher#cmatch' } " Use better matching algorithm
+let g:ctrlp_max_files = 100000 " Use better matching algorithm
 
 " Edit/source vimrc bindings
 nmap <silent> <leader>ev :e $MYVIMRC<CR>
@@ -268,11 +235,12 @@ function! NumberToggle()
 endfunction
 nnoremap <C-n> :call NumberToggle()<CR>
 
+" DelimitMate
 let delimitMate_expand_cr = 1
 let delimitMate_jump_expansion = 1
 let delimitMate_smart_matchpairs = 1
 
-" EASYMOTIOn
+" Easymotion
 let g:EasyMotion_do_mapping = 0 " Disable default mappings
 
 " Bi-directional find motion
@@ -290,27 +258,14 @@ nmap d<Leader><space> <Plug>(easyoperator-line-delete)
 
 " Enable lightline
 set laststatus=2
-
-" RainbowParens
-au VimEnter * RainbowParenthesesToggle
-au Syntax * RainbowParenthesesLoadRound
-au Syntax * RainbowParenthesesLoadSquare
-au Syntax * RainbowParenthesesLoadBraces
-
-let g:rbpt_colorpairs = [
-    \ ['brown',       'RoyalBlue3'],
-    \ ['darkgray',    'DarkOrchid3'],
-    \ ['darkgreen',   'firebrick3'],
-    \ ['darkcyan',    'RoyalBlue3'],
-    \ ['darkred',     'SeaGreen3'],
-    \ ['brown',       'firebrick3'],
-    \ ['gray',        'RoyalBlue3'],
-    \ ['darkgreen',   'RoyalBlue3'],
-    \ ['darkcyan',    'SeaGreen3'],
-    \ ['darkred',     'DarkOrchid3'],
-    \ ['red',         'firebrick3'],
-    \ ]
-let g:rbpt_max = 11
+let g:lightline = {
+      \ 'colorscheme': 'jellybeans',
+      \ 'component': {
+      \   'readonly': '%{&readonly?"":""}',
+      \ },
+      \ 'separator': { 'left': '', 'right': ''  },
+      \ 'subseparator': { 'left': '', 'right': ''  }
+      \ }
 
 " Remove trailing spaces on save
 autocmd BufWritePre * :%s/\s\+$//e
@@ -329,10 +284,8 @@ nmap <Leader>a> :Tabularize /=><CR>
 vmap <Leader>a> :Tabularize /=><CR>
 
 " syntastic config
-
 let g:syntastic_check_on_open = 1
-let g:syntastic_ruby_checkers = ['mri', 'rubocop']
-let g:syntastic_ruby_rubocop_exec = '/home/georgi/bin/rubocop.sh'
+let g:syntastic_ruby_checkers = ['mri']
 
 " Highlight debugging statements
 au BufEnter *.rb syn match error contained "\<binding.pry\>"
@@ -343,6 +296,6 @@ autocmd Filetype gitcommit setlocal spell textwidth=72
 
 cnoremap w!! %!sudo tee > /dev/null %
 
+" NERDTree
 map <F4> <plug>NERDTreeTabsToggle<CR>
 nmap <F5> :NERDTreeFind<CR>
-" let g:nerdtree_tabs_open_on_console_startup=1

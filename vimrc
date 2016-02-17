@@ -64,6 +64,7 @@ Plugin 'JazzCore/ctrlp-cmatcher' " Better matching algorithm for ctrlp. Requires
 " Util
 Plugin 'danro/rename.vim'        " A command and function that basically does a ':saveas <newfile>' then removes the old filename on the disk.
 Plugin 'jodosha/vim-devnotes'
+Plugin 'AndrewRadev/writable_search.vim'
 
 " Text transformation
 Plugin 'godlygeek/tabular'        " Vim script for text filtering and alignment

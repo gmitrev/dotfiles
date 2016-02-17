@@ -11,6 +11,7 @@ alias ssr='ss -npl | grep 3000'
 alias glog="git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --"
 
 alias :q='exit'
+alias lock='xscreensaver-command --lock'
 
 alias crb='cd ~/code/rb'
 alias cdrb='cd ~/code-rb/rb/receipt-bank/application'
@@ -63,7 +64,6 @@ export PATH="$HOME/.cabal/bin:$PATH"
 # OPAM configuration
 . /home/georgi/.opam/opam-init/init.zsh > /dev/null 2> /dev/null || true
 
-
 export LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:/usr/local/lib
 
 alias grep="/usr/bin/grep $GREP_OPTIONS"
@@ -72,3 +72,8 @@ source /usr/share/doc/pkgfile/command-not-found.zsh
 
 source /usr/share/chruby/chruby.sh
 source /usr/share/chruby/auto.sh
+
+chruby ruby-2.3.0
+
+# set -o vi
+# bindkey '^R' history-incremental-search-backward

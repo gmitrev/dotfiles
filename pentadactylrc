@@ -35,4 +35,4 @@ set hlfind
 set titlestring=''
 " vim: set ft=pentadactyl:
 
-set defsearch=duckduckgo
+" set defsearch=duckduckgo

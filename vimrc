@@ -9,21 +9,26 @@ call vundle#begin()
 
 Plugin 'gmarik/Vundle.vim'
 
-Plugin 'L9'                       " required by other plugins
-Plugin 'epeli/slimux'
+Plugin 'L9'                                        " required by other plugins
+Plugin 'epeli/slimux'                              " send text from vim to another tmux pane
 
 " Lang-specific
 Bundle 'Markdown'
-Plugin 'tpope/vim-endwise'
-Plugin 'pangloss/vim-javascript'
 Plugin 'elzr/vim-json'
-Plugin 'kchmck/vim-coffee-script'
+Plugin 'slim-template/vim-slim'
 
 " Ruby
-Plugin 'tpope/vim-rails'
-Plugin 'vim-ruby/vim-ruby'
-Plugin 'vim-scripts/ruby.vim--IGREQUE'
-Plugin 'ecomba/vim-ruby-refactoring'
+Plugin 'tpope/vim-rails'                    " Rails syntax
+Plugin 'gmitrev/vim-ruby'                   " Using my fork because of the support for (), {} and []
+Plugin 'vim-scripts/ruby.vim--IGREQUE'      " Improved Indendation
+Plugin 'tpope/vim-endwise'
+
+" JS
+Plugin 'pangloss/vim-javascript'
+Plugin 'kchmck/vim-coffee-script'
+Plugin 'mxw/vim-jsx'
+Plugin 'mtscout6/vim-cjsx'
+Plugin 'gmitrev/javascript-libraries-syntax.vim'   " My fork has better React support
 
 " Clj
 Plugin 'tpope/vim-fireplace'
@@ -36,38 +41,32 @@ Plugin 'tpope/vim-fugitive'
 " Syntax
 Plugin 'scrooloose/syntastic'
 Plugin 'tomtom/tcomment_vim'
-Bundle 'surround.vim'
-Plugin 'vim-scripts/matchit.zip'
-Plugin 'jiangmiao/auto-pairs'
-Plugin 'slim-template/vim-slim'
 
-" Source
+" Indentation
 Plugin 'vim-scripts/IndentAnything'
 
-" Snippets
-Bundle "MarcWeber/vim-addon-mw-utils"
-Bundle "tomtom/tlib_vim"
-Bundle "garbas/vim-snipmate"
-Bundle "honza/vim-snippets"
+" Autocompletion
+Bundle 'surround.vim'
+Plugin 'vim-scripts/matchit.zip'
 Plugin 'ervandew/supertab'
+Plugin 'jiangmiao/auto-pairs'
 
 " Navigation
-Bundle 'Lokaltog/vim-easymotion'
+Plugin 'Lokaltog/vim-easymotion'
 Plugin 'scrooloose/nerdtree'
-Bundle 'jistr/vim-nerdtree-tabs'
+Plugin 'jistr/vim-nerdtree-tabs'
 
 " File navigation
-Plugin 'rking/ag.vim'            " Search in files
-Plugin 'kien/ctrlp.vim'          " Quick file navigation
-Plugin 'JazzCore/ctrlp-cmatcher' " Better matching algorithm for ctrlp. Requires additional installation
+Plugin 'rking/ag.vim'                       " Search in files
+Plugin 'kien/ctrlp.vim'                     " Quick file navigation
+Plugin 'JazzCore/ctrlp-cmatcher'            " Better matching algorithm for ctrlp. Requires additional installation
 
 " Util
-Plugin 'danro/rename.vim'        " A command and function that basically does a ':saveas <newfile>' then removes the old filename on the disk.
-Plugin 'jodosha/vim-devnotes'
-Plugin 'AndrewRadev/writable_search.vim'
+Plugin 'danro/rename.vim'                   " A command and function that basically does a ':saveas <newfile>' then removes the old filename on the disk.
+Plugin 'AndrewRadev/writable_search.vim'    " Useful for global search and replace
 
 " Text transformation
-Plugin 'godlygeek/tabular'        " Vim script for text filtering and alignment
+Plugin 'godlygeek/tabular'                  " Vim script for text filtering and alignment
 Plugin 'AndrewRadev/splitjoin.vim'
 Plugin 'terryma/vim-multiple-cursors'
 
@@ -150,7 +149,7 @@ set term=screen-256color " Better colors
 
 syntax on
 
-color lucius
+color a
 
 " Alias :W to :w
 ca W w
@@ -176,6 +175,9 @@ nnoremap k gk
 
 " No need to type 'asdasdasfdgfd' after search to clear highlights
 nmap <silent> <leader>q :nohlsearch<CR>
+
+" Show highlight group for object under cursor
+map <F3> :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<' . synIDattr(synID(line("."),col("."),0),"name") . "> lo<" . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">" . " FG:" . synIDattr(synIDtrans(synID(line("."),col("."),1)),"fg#")<CR>
 
 " Center on current line when searching
 nmap n nzz
@@ -210,7 +212,6 @@ au BufNewFile,BufRead Appraisals set filetype=ruby
 au BufNewFile,BufRead .psqlrc set filetype=sql
 au BufNewFile,BufRead *.less set filetype=css
 au BufNewFile,BufRead bash_profile set filetype=sh
-au FileType eruby so ~/.vim/bundle/HTML-AutoCloseTag/ftplugin/html_autoclosetag.vim
 
 " Java config
 au Filetype java setl et ts=4 sw=4
@@ -218,23 +219,12 @@ au Filetype java setl et ts=4 sw=4
 " Ctrlp config
 set runtimepath^=~/.vim/bundle/ctrlp.vim
 nnoremap <Leader>p :CtrlPTag<CR>
-nmap <F8> :TagbarToggle<CR>
 let g:ctrlp_match_func = {'match' : 'matcher#cmatch' } " Use better matching algorithm
 let g:ctrlp_max_files = 100000 " Use better matching algorithm
 
 " Edit/source vimrc bindings
 nmap <silent> <leader>ev :e $MYVIMRC<CR>
 nmap <silent> <leader>sv :so $MYVIMRC<CR>
-
-" Toggle abs/rel linenumbers
-function! NumberToggle()
-  if(&relativenumber == 1)
-    set number
-  else
-    set rnu
-  endif
-endfunction
-nnoremap <C-n> :call NumberToggle()<CR>
 
 " DelimitMate
 let delimitMate_expand_cr = 1
@@ -268,10 +258,11 @@ let g:lightline = {
       \ 'subseparator': { 'left': '', 'right': ''  }
       \ }
 
-" Remove trailing spaces on save
+" Remove trailing spaces on save (oh yeah)
 autocmd BufWritePre * :%s/\s\+$//e
 
-let g:ctrlp_custom_ignore = '\v[\/](coverage|tmp|out)$'
+" Ignore crappy folders
+let g:ctrlp_custom_ignore = '\v[\/](coverage|tmp|out|node_modules)$'
 
 set list listchars=precedes:<,extends:>
 set list listchars=tab:>-,trail:·,precedes:<,extends:>
@@ -300,3 +291,9 @@ cnoremap w!! %!sudo tee > /dev/null %
 " NERDTree
 map <F4> <plug>NERDTreeTabsToggle<CR>
 nmap <F5> :NERDTreeFind<CR>
+
+" Config custom js libs
+let g:used_javascript_libs = 'react,jquery'
+
+" Use react syntax on plain old .js files
+let g:jsx_ext_required = 0

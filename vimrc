@@ -13,7 +13,8 @@ Plugin 'L9'                                        " required by other plugins
 Plugin 'epeli/slimux'                              " send text from vim to another tmux pane
 
 " Lang-specific
-Bundle 'Markdown'
+Plugin 'godlygeek/tabular'                  " Vim script for text filtering and alignment; also required by vim-markdown
+Plugin 'plasticboy/vim-markdown'
 Plugin 'elzr/vim-json'
 Plugin 'slim-template/vim-slim'
 
@@ -66,11 +67,12 @@ Plugin 'danro/rename.vim'                   " A command and function that basica
 Plugin 'AndrewRadev/writable_search.vim'    " Useful for global search and replace
 
 " Text transformation
-Plugin 'godlygeek/tabular'                  " Vim script for text filtering and alignment
 Plugin 'AndrewRadev/splitjoin.vim'
 Plugin 'terryma/vim-multiple-cursors'
 
 " Themes
+Plugin 'gmitrev/amalgam.vim'
+Plugin 'w0ng/vim-hybrid'
 Plugin 'jonathanfilip/vim-lucius'
 Plugin 'ap/vim-css-color'
 Plugin 'itchyny/lightline.vim'
@@ -149,7 +151,7 @@ set term=screen-256color " Better colors
 
 syntax on
 
-color a
+color amalgam
 
 " Alias :W to :w
 ca W w
@@ -297,3 +299,6 @@ let g:used_javascript_libs = 'react,jquery'
 
 " Use react syntax on plain old .js files
 let g:jsx_ext_required = 0
+
+" Vertical column at char 100
+set colorcolumn=100

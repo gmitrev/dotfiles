@@ -29,12 +29,18 @@ Plugin 'pangloss/vim-javascript'
 Plugin 'kchmck/vim-coffee-script'
 Plugin 'mxw/vim-jsx'
 Plugin 'mtscout6/vim-cjsx'
-Plugin 'gmitrev/javascript-libraries-syntax.vim'   " My fork has better React support
+Plugin 'othree/javascript-libraries-syntax.vim'
+
+" Html
+Plugin 'mattn/emmet-vim'
 
 " Clj
 Plugin 'tpope/vim-fireplace'
 Plugin 'guns/vim-clojure-static'
 Plugin 'guns/vim-clojure-highlight'
+
+" Elixir
+Plugin 'elixir-lang/vim-elixir'
 
 " Git
 Plugin 'tpope/vim-fugitive'
@@ -65,6 +71,7 @@ Plugin 'JazzCore/ctrlp-cmatcher'            " Better matching algorithm for ctrl
 " Util
 Plugin 'danro/rename.vim'                   " A command and function that basically does a ':saveas <newfile>' then removes the old filename on the disk.
 Plugin 'AndrewRadev/writable_search.vim'    " Useful for global search and replace
+Plugin 'vimwiki/vimwiki.git'
 
 " Text transformation
 Plugin 'AndrewRadev/splitjoin.vim'
@@ -76,6 +83,9 @@ Plugin 'w0ng/vim-hybrid'
 Plugin 'jonathanfilip/vim-lucius'
 Plugin 'ap/vim-css-color'
 Plugin 'itchyny/lightline.vim'
+Plugin 'altercation/vim-colors-solarized'
+
+Plugin 'thoughtbot/vim-rspec'
 
 call vundle#end()
 filetype plugin indent on
@@ -127,7 +137,6 @@ set formatoptions=c,q,r,t " This is a sequence of letters which describes how
                     "           to comments)
 set ruler           " Show the line and column number of the cursor position,
                     " separated by a comma.
-set background=dark " When set to "dark", Vim will try to use colors that look
                     " good on a dark background. When set to "light", Vim will
                     " try to use colors that look good on a light background.
                     " Any other value is illegal.
@@ -151,7 +160,11 @@ set term=screen-256color " Better colors
 
 syntax on
 
+set background=dark
 color amalgam
+" hi Normal ctermbg=none
+" set background=light
+" colorscheme solarized
 
 " Alias :W to :w
 ca W w
@@ -251,8 +264,9 @@ nmap d<Leader><space> <Plug>(easyoperator-line-delete)
 
 " Enable lightline
 set laststatus=2
+
 let g:lightline = {
-      \ 'colorscheme': 'jellybeans',
+      \ 'colorscheme': 'seoul256',
       \ 'component': {
       \   'readonly': '%{&readonly?"":""}',
       \ },
@@ -260,11 +274,20 @@ let g:lightline = {
       \ 'subseparator': { 'left': '', 'right': ''  }
       \ }
 
+" let g:lightline = {
+"       \ 'colorscheme': 'solarized',
+"       \ 'component': {
+"       \   'readonly': '%{&readonly?"":""}',
+"       \ },
+"       \ 'separator': { 'left': '', 'right': ''  },
+"       \ 'subseparator': { 'left': '', 'right': ''  }
+"       \ }
+
 " Remove trailing spaces on save (oh yeah)
 autocmd BufWritePre * :%s/\s\+$//e
 
 " Ignore crappy folders
-let g:ctrlp_custom_ignore = '\v[\/](coverage|tmp|out|node_modules)$'
+let g:ctrlp_custom_ignore = '\v[\/](coverage|tmp|out|node_modules|deps|_build)$'
 
 set list listchars=precedes:<,extends:>
 set list listchars=tab:>-,trail:·,precedes:<,extends:>
@@ -302,3 +325,21 @@ let g:jsx_ext_required = 0
 
 " Vertical column at char 100
 set colorcolumn=100
+
+" RSpec.vim mappings
+map <Leader>t :call RunCurrentSpecFile()<CR>
+map <Leader>s :call RunNearestSpec()<CR>
+map <Leader>l :call RunLastSpec()<CR>
+map <Leader>a :call RunAllSpecs()<CR>
+
+let g:rspec_command = "!zeus test {spec}"
+
+function RunRubocopOnCurrentFile()
+  execute "!bundle exec rubocop %"
+endfunction
+map <Leader>g :call RunRubocopOnCurrentFile()<CR>
+
+vnoremap <C-c> "+y
+
+" Vimwiki
+let g:vimwiki_list = [{'path': '~/Dropbox/vimwiki'}]

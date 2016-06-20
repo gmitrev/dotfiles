@@ -192,7 +192,11 @@ nnoremap k gk
 nmap <silent> <leader>q :nohlsearch<CR>
 
 " Show highlight group for object under cursor
-map <F3> :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<' . synIDattr(synID(line("."),col("."),0),"name") . "> lo<" . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">" . " FG:" . synIDattr(synIDtrans(synID(line("."),col("."),1)),"fg#")<CR>
+" map <F3> :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<' . synIDattr(synID(line("."),col("."),0),"name") . "> lo<" . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">" . " FG:" . synIDattr(synIDtrans(synID(line("."),col("."),1)),"fg#")<CR>
+
+" Insert current date
+nmap <F3> i<C-R>=strftime("%b %d")<CR><Esc>
+imap <F3> <C-R>=strftime("%b %d")<CR>
 
 " Center on current line when searching
 nmap n nzz

@@ -28,13 +28,14 @@ unset RUBY_HEAP_MIN_SLOTS
 # Uncomment following line if you want to disable autosetting terminal title.
 DISABLE_AUTO_TITLE="true"
 
-plugins=(rails git archlinux lein lol rails3 gmitrev bundler zeus zsh-syntax-highlighting)
+plugins=(rails git archlinux lein lol rails3 gmitrev bundler zeus zsh-syntax-highlighting mix)
 
 source $ZSH/oh-my-zsh.sh
+source /etc/profile.d/smlnj.sh
 
 # Customize to your needs...
 export PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/home/georgi/bin
-export PATH=/usr/lib/lightdm/lightdm:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/home/georgi/bin
+export PATH=/usr/lib/lightdm/lightdm:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/home/georgi/bin:/usr/lib/smlnj/bin
 
 #rbenv
 # export PATH="$HOME/.rbenv/bin:$PATH"
@@ -73,7 +74,25 @@ source /usr/share/doc/pkgfile/command-not-found.zsh
 source /usr/share/chruby/chruby.sh
 source /usr/share/chruby/auto.sh
 
-chruby ruby-2.3.0
+chruby ruby-2.4.0
 
 # set -o vi
 # bindkey '^R' history-incremental-search-backward
+export EVENT_NOEPOLL=1
+export BROWSER=firefox
+# export DISABLE_SPRING=true
+
+alias gap='git add -p'
+alias gca='git commit --amend'
+alias gco='git branch | fzf | xargs git checkout'
+alias gco-='git checkout -'
+alias gco--='git checkout --'
+alias gbd='git branch | fzf | xargs git branch -d'
+alias gbD='git branch | fzf | xargs git branch -D'
+alias gcob='git checkout -b'
+
+alias tailf='tail -f'
+alias mux='tmuxinator'
+
+# For testing systemd monolith services
+# chruby ruby-2.3.3

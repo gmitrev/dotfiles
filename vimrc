@@ -11,12 +11,14 @@ Plugin 'gmarik/Vundle.vim'
 
 Plugin 'L9'                                        " required by other plugins
 Plugin 'epeli/slimux'                              " send text from vim to another tmux pane
+Plugin 'jpalardy/vim-slime.git'
 
 " Lang-specific
 Plugin 'godlygeek/tabular'                  " Vim script for text filtering and alignment; also required by vim-markdown
 Plugin 'plasticboy/vim-markdown'
 Plugin 'elzr/vim-json'
 Plugin 'slim-template/vim-slim'
+Plugin 'posva/vim-vue'
 
 " Ruby
 Plugin 'tpope/vim-rails'                    " Rails syntax
@@ -33,6 +35,7 @@ Plugin 'othree/javascript-libraries-syntax.vim'
 
 " Html
 Plugin 'mattn/emmet-vim'
+Plugin 'alvan/vim-closetag'
 
 " Clj
 Plugin 'tpope/vim-fireplace'
@@ -41,6 +44,10 @@ Plugin 'guns/vim-clojure-highlight'
 
 " Elixir
 Plugin 'elixir-lang/vim-elixir'
+Plugin 'slashmili/alchemist.vim'
+
+" Crystal
+Plugin 'rhysd/vim-crystal'
 
 " Git
 Plugin 'tpope/vim-fugitive'
@@ -85,7 +92,9 @@ Plugin 'ap/vim-css-color'
 Plugin 'itchyny/lightline.vim'
 Plugin 'altercation/vim-colors-solarized'
 
-Plugin 'thoughtbot/vim-rspec'
+Plugin 'janko-m/vim-test'
+Plugin 'benmills/vimux'
+Plugin 'calebsmith/vim-lambdify'
 
 call vundle#end()
 filetype plugin indent on
@@ -188,6 +197,9 @@ nmap <silent> <leader>sv :so $MYVIMRC<CR>
 nnoremap j gj
 nnoremap k gk
 
+" Make copy and pasting great again
+vnoremap <C-c> "+y
+
 " No need to type 'asdasdasfdgfd' after search to clear highlights
 nmap <silent> <leader>q :nohlsearch<CR>
 
@@ -210,10 +222,6 @@ set viewoptions=folds
 " Swtich between buffers with tab
 noremap <tab> gt<CR>
 noremap <S-tab> gT<CR>
-
-" Slimux bindings
-map <Leader>e :SlimuxREPLSendSelection<CR>
-map <Leader>r :SlimuxREPLSendLine<CR>
 
 " Treat <li> and <p> tags like the block tags they are
 let g:html_indent_tags = 'li\|p'
@@ -240,6 +248,10 @@ set runtimepath^=~/.vim/bundle/ctrlp.vim
 nnoremap <Leader>p :CtrlPTag<CR>
 let g:ctrlp_match_func = {'match' : 'matcher#cmatch' } " Use better matching algorithm
 let g:ctrlp_max_files = 100000 " Use better matching algorithm
+
+" Ignore crappy folders
+let g:ctrlp_custom_ignore = '\v[\/](coverage|tmp|out|node_modules|deps|_build)$'
+let g:ctrlp_user_command = ['.git/', 'git --git-dir=%s/.git ls-files -oc --exclude-standard']
 
 " Edit/source vimrc bindings
 nmap <silent> <leader>ev :e $MYVIMRC<CR>
@@ -269,6 +281,7 @@ nmap d<Leader><space> <Plug>(easyoperator-line-delete)
 " Enable lightline
 set laststatus=2
 
+" seoul256 | solarized
 let g:lightline = {
       \ 'colorscheme': 'seoul256',
       \ 'component': {
@@ -278,20 +291,8 @@ let g:lightline = {
       \ 'subseparator': { 'left': '', 'right': ''  }
       \ }
 
-" let g:lightline = {
-"       \ 'colorscheme': 'solarized',
-"       \ 'component': {
-"       \   'readonly': '%{&readonly?"":""}',
-"       \ },
-"       \ 'separator': { 'left': '', 'right': ''  },
-"       \ 'subseparator': { 'left': '', 'right': ''  }
-"       \ }
-
 " Remove trailing spaces on save (oh yeah)
 autocmd BufWritePre * :%s/\s\+$//e
-
-" Ignore crappy folders
-let g:ctrlp_custom_ignore = '\v[\/](coverage|tmp|out|node_modules|deps|_build)$'
 
 set list listchars=precedes:<,extends:>
 set list listchars=tab:>-,trail:·,precedes:<,extends:>
@@ -313,6 +314,11 @@ au BufEnter *.rb syn match error contained "\<binding.pry\>"
 au BufEnter *.rb syn match error contained "\<debugger\>"
 au BufEnter *.rb syn match error contained "\<byebug\>"
 
+" I can't spell
+au BufEnter *.rb syn match error contained "\<perfrom\>"
+au BufEnter *.rb syn match error contained "\<perfrom_later\>"
+au BufEnter *.rb syn match error contained "\<perfrom_now\>"
+
 autocmd Filetype gitcommit setlocal spell textwidth=72
 
 cnoremap w!! %!sudo tee > /dev/null %
@@ -328,14 +334,15 @@ let g:used_javascript_libs = 'react,jquery'
 let g:jsx_ext_required = 0
 
 " Vertical column at char 100
-set colorcolumn=100
+set colorcolumn=120
 
-" RSpec.vim mappings
-map <Leader>t :call RunCurrentSpecFile()<CR>
-map <Leader>s :call RunNearestSpec()<CR>
-map <Leader>l :call RunLastSpec()<CR>
-map <Leader>a :call RunAllSpecs()<CR>
+" vim-test config
+nmap <silent> <leader>s :TestNearest<CR>
+nmap <silent> <leader>t :TestFile<CR>
+nmap <silent> <leader>l :TestLast<CR>
+nmap <silent> <leader>a :TestSuite<CR>
 
+let test#strategy = "vimux"
 let g:rspec_command = "!zeus test {spec}"
 
 function RunRubocopOnCurrentFile()
@@ -343,7 +350,22 @@ function RunRubocopOnCurrentFile()
 endfunction
 map <Leader>g :call RunRubocopOnCurrentFile()<CR>
 
-vnoremap <C-c> "+y
 
 " Vimwiki
 let g:vimwiki_list = [{'path': '~/Dropbox/vimwiki'}]
+
+nmap <Leader>dn :VimwikiDiaryNextDay<CR>
+vmap <Leader>dn :VimwikiDiaryNextDay<CR>
+
+nmap <Leader>dp :VimwikiDiaryPrevDay<CR>
+vmap <Leader>dp :VimwikiDiaryPrevDay<CR>
+
+let g:closetag_filenames = "*.html,*.xhtml,*.phtml,*.erb,*.eex"
+
+let g:slime_target = "tmux"
+let g:slime_dont_ask_default = 1
+let g:slime_default_config = {"socket_name": "default", "target_pane": "2"}
+map <Leader>r <Plug>SlimeLineSend
+map <Leader>e <Plug>SlimeRegionSend
+
+nmap 0 ^

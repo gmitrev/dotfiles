@@ -11,21 +11,13 @@ Config { font = "xft:Ubuntu Mono:Medium:size=11:antialias=true"
                     , Run Date "<fc=#93a1a1>%a %b %_d %Y %H:%M</fc>" "date" 10
                     , Run StdinReader
                     , Run Com "setxkbmap -query | grep 'layout' | awk '{print $2}'"  [] "keyboard" 1
-                    , Run Battery        [ "--template" , "Batt: <acstatus>"
-                                                 , "--Low"      , "10"        -- units: %
-                                                 , "--High"     , "80"        -- units: %
-                                                 , "--low"      , "darkred"
-                                                 , "--normal"   , "darkorange"
-                                                 , "--high"     , "darkgreen"
-
-                                                 , "--" -- battery specific options
-                                                           -- discharging status
-                                                           , "-o"	, "<left>% (<timeleft>)"
-                                                           -- AC "on" status
-                                                           , "-O"	, "<fc=#dAA520>Charging</fc>"
-                                                           -- charged status
-                                                           , "-i"	, "<fc=#006000>Charged</fc>"
-                                                 ] 50
+                    , Run BatteryP ["BAT0"]
+                                   ["-t", "<acstatus><watts> (<left>%)",
+                                    "-L", "10", "-H", "80", "-p", "3",
+                                    "--", "-O", "<fc=green>On</fc> - ", "-i", "",
+                                    "-L", "-15", "-H", "-5",
+                                    "-l", "red", "-m", "blue", "-h", "green"]
+                                   600
 
                     -- time and date indicator
                     --   (%F = y-m-d date, %a = day of week, %T = h:m:s time)

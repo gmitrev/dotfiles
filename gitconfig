@@ -25,3 +25,5 @@
   newHighlight = "green bold 22"
 [pull]
   rebase = true
+[rerere]
+	enabled = true

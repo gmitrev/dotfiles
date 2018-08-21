@@ -8,55 +8,62 @@ set rtp+=~/.vim/bundle/Vundle.vim " set the runtime path to include Vundle and i
 call vundle#begin()
 
 Plugin 'gmarik/Vundle.vim'
-
+"
 Plugin 'L9'                                        " required by other plugins
 Plugin 'epeli/slimux'                              " send text from vim to another tmux pane
 Plugin 'jpalardy/vim-slime.git'
-
-" Lang-specific
+" Plugin 'wincent/terminus'
+"
+" " Lang-specific
 Plugin 'godlygeek/tabular'                  " Vim script for text filtering and alignment; also required by vim-markdown
 Plugin 'plasticboy/vim-markdown'
 Plugin 'elzr/vim-json'
 Plugin 'slim-template/vim-slim'
 Plugin 'posva/vim-vue'
 
-" Ruby
+" " Ruby
 Plugin 'tpope/vim-rails'                    " Rails syntax
-Plugin 'gmitrev/vim-ruby'                   " Using my fork because of the support for (), {} and []
+" Plugin 'gmitrev/vim-ruby'                   " Using my fork because of the support for (), {} and []
+Plugin 'vim-ruby/vim-ruby'                   " Using my fork because of the support for (), {} and []
 Plugin 'vim-scripts/ruby.vim--IGREQUE'      " Improved Indendation
 Plugin 'tpope/vim-endwise'
 
 " JS
 Plugin 'pangloss/vim-javascript'
 Plugin 'kchmck/vim-coffee-script'
-Plugin 'mxw/vim-jsx'
-Plugin 'mtscout6/vim-cjsx'
+" Plugin 'mxw/vim-jsx'
+" Plugin 'mtscout6/vim-cjsx'
 Plugin 'othree/javascript-libraries-syntax.vim'
 
-" Html
-Plugin 'mattn/emmet-vim'
+" Groovy
+Plugin 'vim-scripts/groovy.vim'
+"
+" " Html
+" Plugin 'mattn/emmet-vim'
 Plugin 'alvan/vim-closetag'
 
-" Clj
-Plugin 'tpope/vim-fireplace'
-Plugin 'guns/vim-clojure-static'
-Plugin 'guns/vim-clojure-highlight'
-
-" Elixir
-Plugin 'elixir-lang/vim-elixir'
-Plugin 'slashmili/alchemist.vim'
-
-" Crystal
-Plugin 'rhysd/vim-crystal'
-
-" Git
+" " Clj
+" Plugin 'tpope/vim-fireplace'
+" Plugin 'guns/vim-clojure-static'
+" Plugin 'guns/vim-clojure-highlight'
+"
+" " Elixir
+" Plugin 'elixir-lang/vim-elixir'
+" Plugin 'slashmili/alchemist.vim'
+"
+" " Crystal
+" Plugin 'rhysd/vim-crystal'
+"
+" " Git
 Plugin 'tpope/vim-fugitive'
-
-" Syntax
-Plugin 'scrooloose/syntastic'
+Plugin 'tpope/vim-rhubarb'
+"
+" " Syntax
+" " Plugin 'scrooloose/syntastic'
+" Plugin 'w0rp/ale'
 Plugin 'tomtom/tcomment_vim'
 
-" Indentation
+" " Indentation
 Plugin 'vim-scripts/IndentAnything'
 
 " Autocompletion
@@ -64,33 +71,37 @@ Bundle 'surround.vim'
 Plugin 'vim-scripts/matchit.zip'
 Plugin 'ervandew/supertab'
 Plugin 'jiangmiao/auto-pairs'
-
-" Navigation
+"
+" " Navigation
 Plugin 'Lokaltog/vim-easymotion'
 Plugin 'scrooloose/nerdtree'
 Plugin 'jistr/vim-nerdtree-tabs'
-
-" File navigation
+"
+" " File navigation
 Plugin 'rking/ag.vim'                       " Search in files
+Plugin 'Chun-Yang/vim-action-ag'                       " Search in files
 Plugin 'kien/ctrlp.vim'                     " Quick file navigation
 Plugin 'JazzCore/ctrlp-cmatcher'            " Better matching algorithm for ctrlp. Requires additional installation
-
-" Util
-Plugin 'danro/rename.vim'                   " A command and function that basically does a ':saveas <newfile>' then removes the old filename on the disk.
-Plugin 'AndrewRadev/writable_search.vim'    " Useful for global search and replace
+"
+" " Util
+" Plugin 'danro/rename.vim'                   " A command and function that basically does a ':saveas <newfile>' then removes the old filename on the disk.
+" Plugin 'AndrewRadev/writable_search.vim'    " Useful for global search and replace
 Plugin 'vimwiki/vimwiki.git'
+Plugin 'airblade/vim-rooter'
 
-" Text transformation
-Plugin 'AndrewRadev/splitjoin.vim'
-Plugin 'terryma/vim-multiple-cursors'
-
-" Themes
+"
+" " Text transformation
+" Plugin 'AndrewRadev/splitjoin.vim'
+" Plugin 'terryma/vim-multiple-cursors'
+"
+" " Themes
 Plugin 'gmitrev/amalgam.vim'
-Plugin 'w0ng/vim-hybrid'
-Plugin 'jonathanfilip/vim-lucius'
+" Plugin 'w0ng/vim-hybrid'
+" Plugin 'jonathanfilip/vim-lucius'
 Plugin 'ap/vim-css-color'
 Plugin 'itchyny/lightline.vim'
-Plugin 'altercation/vim-colors-solarized'
+" Plugin 'altercation/vim-colors-solarized'
+Plugin 'dracula/vim'
 
 Plugin 'janko-m/vim-test'
 Plugin 'benmills/vimux'
@@ -130,7 +141,7 @@ set backspace=2     " Influences the working of <BS>, <Del>, CTRL-W
 set autoindent      " Copy indent from current line when starting a new line
                     " (typing <CR> in Insert mode or when using the "o" or "O"
                     " command).
-set textwidth=79    " Maximum width of text that is being inserted. A longer
+set textwidth=99    " Maximum width of text that is being inserted. A longer
                     " line will be broken after white space to get this width.
 set formatoptions=c,q,r,t " This is a sequence of letters which describes how
                     " automatic formatting is to be done.
@@ -170,6 +181,9 @@ set term=screen-256color " Better colors
 syntax on
 
 set background=dark
+" let g:dracula_italic = 0
+" colorscheme dracula
+" highlight Normal ctermbg=None
 color amalgam
 " hi Normal ctermbg=none
 " set background=light
@@ -207,8 +221,8 @@ nmap <silent> <leader>q :nohlsearch<CR>
 " map <F3> :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<' . synIDattr(synID(line("."),col("."),0),"name") . "> lo<" . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">" . " FG:" . synIDattr(synIDtrans(synID(line("."),col("."),1)),"fg#")<CR>
 
 " Insert current date
-nmap <F3> i<C-R>=strftime("%b %d")<CR><Esc>
-imap <F3> <C-R>=strftime("%b %d")<CR>
+" nmap <F3> i<C-R>=strftime("%b %d")<CR><Esc>
+" imap <F3> <C-R>=strftime("%b %d")<CR>
 
 " Center on current line when searching
 nmap n nzz
@@ -239,6 +253,8 @@ au BufNewFile,BufRead Appraisals set filetype=ruby
 au BufNewFile,BufRead .psqlrc set filetype=sql
 au BufNewFile,BufRead *.less set filetype=css
 au BufNewFile,BufRead bash_profile set filetype=sh
+au BufNewFile,BufRead *.vue set filetype=vue.js.html.css
+au BufNewFile,BufRead Jenkinsfile* set filetype=groovy
 
 " Java config
 au Filetype java setl et ts=4 sw=4
@@ -306,9 +322,11 @@ nmap <Leader>a> :Tabularize /=><CR>
 vmap <Leader>a> :Tabularize /=><CR>
 
 " syntastic config
-let g:syntastic_check_on_open = 1
-let g:syntastic_ruby_checkers = ['mri']
-
+" let g:syntastic_check_on_open = 1
+" let g:syntastic_ruby_checkers = ['mri']
+" let g:ale_fixers = {
+" \   'ruby': ['rubocop', 'ruby'],
+" \}
 " Highlight debugging statements
 au BufEnter *.rb syn match error contained "\<binding.pry\>"
 au BufEnter *.rb syn match error contained "\<debugger\>"
@@ -323,9 +341,9 @@ autocmd Filetype gitcommit setlocal spell textwidth=72
 
 cnoremap w!! %!sudo tee > /dev/null %
 
-" NERDTree
+" NERJun 03DTree
+nmap <F3> :NERDTreeFind<CR>
 map <F4> <plug>NERDTreeTabsToggle<CR>
-nmap <F5> :NERDTreeFind<CR>
 
 " Config custom js libs
 let g:used_javascript_libs = 'react,jquery'
@@ -350,7 +368,6 @@ function RunRubocopOnCurrentFile()
 endfunction
 map <Leader>g :call RunRubocopOnCurrentFile()<CR>
 
-
 " Vimwiki
 let g:vimwiki_list = [{'path': '~/Dropbox/vimwiki'}]
 
@@ -359,6 +376,10 @@ vmap <Leader>dn :VimwikiDiaryNextDay<CR>
 
 nmap <Leader>dp :VimwikiDiaryPrevDay<CR>
 vmap <Leader>dp :VimwikiDiaryPrevDay<CR>
+
+map <Leader>dd <Plug>VimwikiToggleListItem
+
+map <Leader>db <Plug>Vimwiki2HTMLBrowse
 
 let g:closetag_filenames = "*.html,*.xhtml,*.phtml,*.erb,*.eex"
 
@@ -369,3 +390,5 @@ map <Leader>r <Plug>SlimeLineSend
 map <Leader>e <Plug>SlimeRegionSend
 
 nmap 0 ^
+
+set clipboard=unnamed

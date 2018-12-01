@@ -1,6 +1,6 @@
 [user]
-	name = Georgi Mitrev
-	email = gvmitrev@gmail.com
+  name = Georgi Mitrev
+  email = gvmitrev@gmail.com
 [github]
   user = gmitrev
 [branch]
@@ -9,7 +9,7 @@
   default = current
 [core]
   pager = diff-highlight | diff-so-fancy | less --tabs=1,5 -R
-	excludesfile = /Users/georgi/.gitignore_global
+  excludesfile = /Users/georgi/.gitignore_global
 [color "diff"]
   meta = yellow bold
   commit = green bold
@@ -18,10 +18,10 @@
   new = green bold
   whitespace = red reverse
 [color "diff-highlight"]
-	oldNormal = red bold
-	oldHighlight = red bold 52
-	newNormal = green bold
-	newHighlight = green bold 22
+  oldNormal = red bold
+  oldHighlight = red bold 52
+  newNormal = green bold
+  newHighlight = green bold 22
 [pull]
   rebase = true
 [rerere]

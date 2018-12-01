@@ -8,62 +8,39 @@ set rtp+=~/.vim/bundle/Vundle.vim " set the runtime path to include Vundle and i
 call vundle#begin()
 
 Plugin 'gmarik/Vundle.vim'
-"
 Plugin 'L9'                                        " required by other plugins
 Plugin 'epeli/slimux'                              " send text from vim to another tmux pane
 Plugin 'jpalardy/vim-slime.git'
-" Plugin 'wincent/terminus'
-"
-" " Lang-specific
+
+" Lang-specific
 Plugin 'godlygeek/tabular'                  " Vim script for text filtering and alignment; also required by vim-markdown
 Plugin 'plasticboy/vim-markdown'
 Plugin 'elzr/vim-json'
 Plugin 'slim-template/vim-slim'
-Plugin 'posva/vim-vue'
 
-" " Ruby
-Plugin 'tpope/vim-rails'                    " Rails syntax
-" Plugin 'gmitrev/vim-ruby'                   " Using my fork because of the support for (), {} and []
-Plugin 'vim-ruby/vim-ruby'                   " Using my fork because of the support for (), {} and []
+" Ruby
+Plugin 'tpope/vim-rails'
+Plugin 'vim-ruby/vim-ruby'
 Plugin 'vim-scripts/ruby.vim--IGREQUE'      " Improved Indendation
 Plugin 'tpope/vim-endwise'
+Plugin 'janko-m/vim-test'
 
 " JS
 Plugin 'pangloss/vim-javascript'
 Plugin 'kchmck/vim-coffee-script'
-" Plugin 'mxw/vim-jsx'
-" Plugin 'mtscout6/vim-cjsx'
 Plugin 'othree/javascript-libraries-syntax.vim'
 
-" Groovy
-Plugin 'vim-scripts/groovy.vim'
-"
-" " Html
-" Plugin 'mattn/emmet-vim'
+" Html
 Plugin 'alvan/vim-closetag'
 
-" " Clj
-" Plugin 'tpope/vim-fireplace'
-" Plugin 'guns/vim-clojure-static'
-" Plugin 'guns/vim-clojure-highlight'
-"
-" " Elixir
-" Plugin 'elixir-lang/vim-elixir'
-" Plugin 'slashmili/alchemist.vim'
-"
-" " Crystal
-" Plugin 'rhysd/vim-crystal'
-"
-" " Git
+" Git
 Plugin 'tpope/vim-fugitive'
-Plugin 'tpope/vim-rhubarb'
-"
-" " Syntax
-" " Plugin 'scrooloose/syntastic'
-" Plugin 'w0rp/ale'
+Plugin 'tpope/vim-rhubarb'                  " Adds :Gbrowse
+
+" Syntax
 Plugin 'tomtom/tcomment_vim'
 
-" " Indentation
+" Indentation
 Plugin 'vim-scripts/IndentAnything'
 
 " Autocompletion
@@ -71,41 +48,30 @@ Bundle 'surround.vim'
 Plugin 'vim-scripts/matchit.zip'
 Plugin 'ervandew/supertab'
 Plugin 'jiangmiao/auto-pairs'
-"
-" " Navigation
+
+" Navigation
 Plugin 'Lokaltog/vim-easymotion'
 Plugin 'scrooloose/nerdtree'
 Plugin 'jistr/vim-nerdtree-tabs'
-"
-" " File navigation
+
+" File navigation
 Plugin 'rking/ag.vim'                       " Search in files
-Plugin 'Chun-Yang/vim-action-ag'                       " Search in files
+Plugin 'Chun-Yang/vim-action-ag'
 Plugin 'kien/ctrlp.vim'                     " Quick file navigation
 Plugin 'JazzCore/ctrlp-cmatcher'            " Better matching algorithm for ctrlp. Requires additional installation
-"
-" " Util
-" Plugin 'danro/rename.vim'                   " A command and function that basically does a ':saveas <newfile>' then removes the old filename on the disk.
-" Plugin 'AndrewRadev/writable_search.vim'    " Useful for global search and replace
+
+" Util
 Plugin 'vimwiki/vimwiki.git'
 Plugin 'airblade/vim-rooter'
-
-"
-" " Text transformation
-" Plugin 'AndrewRadev/splitjoin.vim'
-" Plugin 'terryma/vim-multiple-cursors'
-"
-" " Themes
-Plugin 'gmitrev/amalgam.vim'
-" Plugin 'w0ng/vim-hybrid'
-" Plugin 'jonathanfilip/vim-lucius'
 Plugin 'ap/vim-css-color'
-Plugin 'itchyny/lightline.vim'
-" Plugin 'altercation/vim-colors-solarized'
-Plugin 'dracula/vim'
-
-Plugin 'janko-m/vim-test'
 Plugin 'benmills/vimux'
 Plugin 'calebsmith/vim-lambdify'
+
+" " Themes
+Plugin 'gmitrev/amalgam.vim'
+Plugin 'gmitrev/darksong.vim'
+Plugin 'itchyny/lightline.vim'
+
 
 call vundle#end()
 filetype plugin indent on
@@ -160,7 +126,7 @@ set ruler           " Show the line and column number of the cursor position,
                     " good on a dark background. When set to "light", Vim will
                     " try to use colors that look good on a light background.
                     " Any other value is illegal.
-" set rnu             " Show relative line numbers
+set colorcolumn=120 " Vertical column at char 120
 set title
 set nobackup        " We don't want no backup
 set noswapfile      " Get rid of swap files
@@ -175,19 +141,19 @@ set pastetoggle=<F2> " External copy/paste
 set splitbelow
 set splitright
 set cursorline      " Highlight current line
+set fillchars+=vert:│        "Better vertial split"
 
-set term=screen-256color " Better colors
+" set term=screen-256color " Better colors
+if exists('+termguicolors')
+  let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
+  let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
+  set termguicolors
+endif
 
 syntax on
 
 set background=dark
-" let g:dracula_italic = 0
-" colorscheme dracula
-" highlight Normal ctermbg=None
-color amalgam
-" hi Normal ctermbg=none
-" set background=light
-" colorscheme solarized
+color darksong
 
 " Alias :W to :w
 ca W w
@@ -204,8 +170,6 @@ inoremap jj <Esc>
 
 " Remap leader
 let mapleader=","
-nmap <silent> <leader>ev :e $MYVIMRC<CR>
-nmap <silent> <leader>sv :so $MYVIMRC<CR>
 
 " Make j and k jump visual, not real lines
 nnoremap j gj
@@ -218,11 +182,7 @@ vnoremap <C-c> "+y
 nmap <silent> <leader>q :nohlsearch<CR>
 
 " Show highlight group for object under cursor
-" map <F3> :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<' . synIDattr(synID(line("."),col("."),0),"name") . "> lo<" . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">" . " FG:" . synIDattr(synIDtrans(synID(line("."),col("."),1)),"fg#")<CR>
-
-" Insert current date
-" nmap <F3> i<C-R>=strftime("%b %d")<CR><Esc>
-" imap <F3> <C-R>=strftime("%b %d")<CR>
+" map <Leader>z :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<' . synIDattr(synID(line("."),col("."),0),"name") . "> lo<" . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">" . " FG:" . synIDattr(synIDtrans(synID(line("."),col("."),1)),"fg#")<CR>
 
 " Center on current line when searching
 nmap n nzz
@@ -256,9 +216,6 @@ au BufNewFile,BufRead bash_profile set filetype=sh
 au BufNewFile,BufRead *.vue set filetype=vue.js.html.css
 au BufNewFile,BufRead Jenkinsfile* set filetype=groovy
 
-" Java config
-au Filetype java setl et ts=4 sw=4
-
 " Ctrlp config
 set runtimepath^=~/.vim/bundle/ctrlp.vim
 nnoremap <Leader>p :CtrlPTag<CR>
@@ -280,15 +237,10 @@ let delimitMate_smart_matchpairs = 1
 
 " Easymotion
 let g:EasyMotion_do_mapping = 0 " Disable default mappings
-
-" Bi-directional find motion
-" Jump to anywhere you want with minimal keystrokes, with just one key binding.
-" nmap <space> <Plug>(easymotion-s)
-nmap <space> <Plug>(easymotion-s2)
 let g:EasyMotion_smartcase = 1
+nmap <space> <Plug>(easymotion-s2)
 map <Leader>j <Plug>(easymotion-j)
 map <Leader>k <Plug>(easymotion-k)
-
 nmap <Leader><space>  <Plug>(easyoperator-line-select)
 omap <Leader><space>  <Plug>(easyoperator-line-select)
 xmap <Leader><space>  <Plug>(easyoperator-line-select)
@@ -297,15 +249,16 @@ nmap d<Leader><space> <Plug>(easyoperator-line-delete)
 " Enable lightline
 set laststatus=2
 
-" seoul256 | solarized
 let g:lightline = {
       \ 'colorscheme': 'seoul256',
       \ 'component': {
       \   'readonly': '%{&readonly?"":""}',
       \ },
-      \ 'separator': { 'left': '', 'right': ''  },
+      \ 'separator': { 'left': '', 'right': ''  },
       \ 'subseparator': { 'left': '', 'right': ''  }
       \ }
+
+set noshowmode
 
 " Remove trailing spaces on save (oh yeah)
 autocmd BufWritePre * :%s/\s\+$//e
@@ -321,12 +274,6 @@ vmap <Leader>a: :Tabularize /:\zs<CR>
 nmap <Leader>a> :Tabularize /=><CR>
 vmap <Leader>a> :Tabularize /=><CR>
 
-" syntastic config
-" let g:syntastic_check_on_open = 1
-" let g:syntastic_ruby_checkers = ['mri']
-" let g:ale_fixers = {
-" \   'ruby': ['rubocop', 'ruby'],
-" \}
 " Highlight debugging statements
 au BufEnter *.rb syn match error contained "\<binding.pry\>"
 au BufEnter *.rb syn match error contained "\<debugger\>"
@@ -337,11 +284,13 @@ au BufEnter *.rb syn match error contained "\<perfrom\>"
 au BufEnter *.rb syn match error contained "\<perfrom_later\>"
 au BufEnter *.rb syn match error contained "\<perfrom_now\>"
 
+"
 autocmd Filetype gitcommit setlocal spell textwidth=72
 
+" When you forget sudo
 cnoremap w!! %!sudo tee > /dev/null %
 
-" NERJun 03DTree
+" NERD Tree
 nmap <F3> :NERDTreeFind<CR>
 map <F4> <plug>NERDTreeTabsToggle<CR>
 
@@ -350,9 +299,6 @@ let g:used_javascript_libs = 'react,jquery'
 
 " Use react syntax on plain old .js files
 let g:jsx_ext_required = 0
-
-" Vertical column at char 100
-set colorcolumn=120
 
 " vim-test config
 nmap <silent> <leader>s :TestNearest<CR>
@@ -373,16 +319,15 @@ let g:vimwiki_list = [{'path': '~/Dropbox/vimwiki'}]
 
 nmap <Leader>dn :VimwikiDiaryNextDay<CR>
 vmap <Leader>dn :VimwikiDiaryNextDay<CR>
-
 nmap <Leader>dp :VimwikiDiaryPrevDay<CR>
 vmap <Leader>dp :VimwikiDiaryPrevDay<CR>
-
 map <Leader>dd <Plug>VimwikiToggleListItem
-
 map <Leader>db <Plug>Vimwiki2HTMLBrowse
 
+" Closetag config
 let g:closetag_filenames = "*.html,*.xhtml,*.phtml,*.erb,*.eex"
 
+" Slimux config
 let g:slime_target = "tmux"
 let g:slime_dont_ask_default = 1
 let g:slime_default_config = {"socket_name": "default", "target_pane": "2"}
@@ -391,4 +336,5 @@ map <Leader>e <Plug>SlimeRegionSend
 
 nmap 0 ^
 
+" Use system clipboard
 set clipboard=unnamed

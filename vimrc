@@ -17,6 +17,7 @@ Plugin 'godlygeek/tabular'                  " Vim script for text filtering and 
 Plugin 'plasticboy/vim-markdown'
 Plugin 'elzr/vim-json'
 Plugin 'slim-template/vim-slim'
+Plugin 'ayu-theme/ayu-vim'
 
 " Ruby
 Plugin 'tpope/vim-rails'
@@ -58,7 +59,7 @@ Plugin 'jistr/vim-nerdtree-tabs'
 Plugin 'rking/ag.vim'                       " Search in files
 Plugin 'Chun-Yang/vim-action-ag'
 Plugin 'kien/ctrlp.vim'                     " Quick file navigation
-Plugin 'JazzCore/ctrlp-cmatcher'            " Better matching algorithm for ctrlp. Requires additional installation
+Plugin 'FelikZ/ctrlp-py-matcher'
 
 " Util
 Plugin 'vimwiki/vimwiki.git'
@@ -66,8 +67,9 @@ Plugin 'airblade/vim-rooter'
 Plugin 'ap/vim-css-color'
 Plugin 'benmills/vimux'
 Plugin 'calebsmith/vim-lambdify'
+Plugin 'ngmy/vim-rubocop'
 
-" " Themes
+" Themes
 Plugin 'gmitrev/amalgam.vim'
 Plugin 'gmitrev/darksong.vim'
 Plugin 'itchyny/lightline.vim'
@@ -143,7 +145,6 @@ set splitright
 set cursorline      " Highlight current line
 set fillchars+=vert:│        "Better vertial split"
 
-" set term=screen-256color " Better colors
 if exists('+termguicolors')
   let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
   let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
@@ -182,7 +183,7 @@ vnoremap <C-c> "+y
 nmap <silent> <leader>q :nohlsearch<CR>
 
 " Show highlight group for object under cursor
-" map <Leader>z :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<' . synIDattr(synID(line("."),col("."),0),"name") . "> lo<" . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">" . " FG:" . synIDattr(synIDtrans(synID(line("."),col("."),1)),"fg#")<CR>
+map <Leader>z :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<' . synIDattr(synID(line("."),col("."),0),"name") . "> lo<" . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">" . " FG:" . synIDattr(synIDtrans(synID(line("."),col("."),1)),"fg#")<CR>
 
 " Center on current line when searching
 nmap n nzz
@@ -219,8 +220,8 @@ au BufNewFile,BufRead Jenkinsfile* set filetype=groovy
 " Ctrlp config
 set runtimepath^=~/.vim/bundle/ctrlp.vim
 nnoremap <Leader>p :CtrlPTag<CR>
-let g:ctrlp_match_func = {'match' : 'matcher#cmatch' } " Use better matching algorithm
-let g:ctrlp_max_files = 100000 " Use better matching algorithm
+let g:ctrlp_match_func = { 'match': 'pymatcher#PyMatch'  }
+let g:ctrlp_max_files = 100000
 
 " Ignore crappy folders
 let g:ctrlp_custom_ignore = '\v[\/](coverage|tmp|out|node_modules|deps|_build)$'
@@ -309,10 +310,13 @@ nmap <silent> <leader>a :TestSuite<CR>
 let test#strategy = "vimux"
 let g:rspec_command = "!zeus test {spec}"
 
-function RunRubocopOnCurrentFile()
-  execute "!bundle exec rubocop %"
-endfunction
-map <Leader>g :call RunRubocopOnCurrentFile()<CR>
+" function RunRubocopOnCurrentFile()
+"   execute "!bundle exec rubocop %"
+" endfunction
+" map <Leader>g :call RunRubocopOnCurrentFile()<CR>
+map <Leader>g :RuboCop<CR>
+
+map <Leader>b :Gblame<CR>
 
 " Vimwiki
 let g:vimwiki_list = [{'path': '~/Dropbox/vimwiki'}]
@@ -338,3 +342,9 @@ nmap 0 ^
 
 " Use system clipboard
 set clipboard=unnamed
+
+set re=1
+set rnu
+set nocursorline
+set lazyredraw
+set ttyfast

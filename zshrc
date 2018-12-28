@@ -85,3 +85,7 @@ eval "$(pyenv init -)"
 
 # https://stackoverflow.com/questions/10887560/zsh-for-loop-array-variable-issue
 set -o shwordsplit
+
+chruby ruby-2.5.3
+
+export PATH="/Users/georgi/bin/:$PATH"

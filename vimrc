@@ -18,6 +18,7 @@ Plugin 'plasticboy/vim-markdown'
 Plugin 'elzr/vim-json'
 Plugin 'slim-template/vim-slim'
 Plugin 'ayu-theme/ayu-vim'
+Plugin 'hashivim/vim-terraform'
 
 " Ruby
 Plugin 'tpope/vim-rails'
@@ -34,12 +35,16 @@ Plugin 'othree/javascript-libraries-syntax.vim'
 " Html
 Plugin 'alvan/vim-closetag'
 
+" Go
+Plugin 'fatih/vim-go'
+
 " Git
 Plugin 'tpope/vim-fugitive'
 Plugin 'tpope/vim-rhubarb'                  " Adds :Gbrowse
 
 " Syntax
 Plugin 'tomtom/tcomment_vim'
+" Plugin 'dense-analysis/ale'
 
 " Indentation
 Plugin 'vim-scripts/IndentAnything'
@@ -68,12 +73,16 @@ Plugin 'ap/vim-css-color'
 Plugin 'benmills/vimux'
 Plugin 'calebsmith/vim-lambdify'
 Plugin 'ngmy/vim-rubocop'
+Plugin 'tpope/vim-repeat'
+Plugin 'AndrewRadev/writable_search.vim'
+Plugin 'AndrewRadev/splitjoin.vim'
+Plugin 'junegunn/vim-easy-align'
 
 " Themes
 Plugin 'gmitrev/amalgam.vim'
 Plugin 'gmitrev/darksong.vim'
 Plugin 'itchyny/lightline.vim'
-
+" Plugin 'vim/killersheep'
 
 call vundle#end()
 filetype plugin indent on
@@ -256,7 +265,7 @@ let g:lightline = {
       \   'readonly': '%{&readonly?"":""}',
       \ },
       \ 'separator': { 'left': '', 'right': ''  },
-      \ 'subseparator': { 'left': '', 'right': ''  }
+      \ 'subseparator': { 'left': '', 'right': ''  }
       \ }
 
 set noshowmode
@@ -264,8 +273,8 @@ set noshowmode
 " Remove trailing spaces on save (oh yeah)
 autocmd BufWritePre * :%s/\s\+$//e
 
-set list listchars=precedes:<,extends:>
-set list listchars=tab:>-,trail:·,precedes:<,extends:>
+" set list listchars=precedes:<,extends:>
+" set list listchars=tab:>-,trail:·,precedes:<,extends:>
 
 " Tabular mappings
 nmap <Leader>a= :Tabularize /=<CR>
@@ -319,8 +328,10 @@ map <Leader>g :RuboCop<CR>
 map <Leader>b :Gblame<CR>
 
 " Vimwiki
-let g:vimwiki_list = [{'path': '~/Dropbox/vimwiki'}]
+let g:vimwiki_list = [{'path': '~/Dropbox/vimwiki', 'syntax': 'markdown', 'ext': '.md'}]
 
+au BufRead,BufNewFile *.md set filetype=vimwiki
+autocmd BufRead,BufNewFile *.wiki setlocal spell
 nmap <Leader>dn :VimwikiDiaryNextDay<CR>
 vmap <Leader>dn :VimwikiDiaryNextDay<CR>
 nmap <Leader>dp :VimwikiDiaryPrevDay<CR>
@@ -348,3 +359,61 @@ set rnu
 set nocursorline
 set lazyredraw
 set ttyfast
+
+" WTF
+imap <F1> <nop>
+imap <F2> <nop>
+imap <F3> <nop>
+imap <F4> <nop>
+imap <F5> <nop>
+imap <F6> <nop>
+imap <F7> <nop>
+imap <F8> <nop>
+imap <F9> <nop>
+imap <F10> <nop>
+imap <F11> <nop>
+imap <F12> <nop>
+
+" Start interactive EasyAlign in visual mode (e.g. vipga)
+xmap ga <Plug>(EasyAlign)
+" Start interactive EasyAlign for a motion/text object (e.g. gaip)
+nmap ga <Plug>(EasyAlign)
+
+map ,pt  :%!sqlformat --reindent --keywords upper --identifiers lower -<CR>
+
+" Go
+let g:polyglot_disabled = ['go']
+let g:go_highlight_functions = 1
+let g:go_highlight_methods = 1
+let g:go_highlight_fields = 1
+let g:go_highlight_types = 1
+let g:go_highlight_structs = 1
+let g:go_highlight_operators = 1
+let g:go_highlight_build_constraints = 1
+let g:go_fmt_fail_silently = 0
+let g:go_fmt_command = "goimports"
+let g:go_def_mapping_enabled = 0
+let g:go_def_mode = 'gopls'
+let g:go_info_mode = 'gopls'
+let g:go_auto_type_info = 1
+
+" run :GoBuild or :GoTestCompile based on the go file
+function! s:build_go_files()
+  let l:file = expand('%')
+  if l:file =~# '^\f\+_test\.go$'
+    call go#test#Test(0, 1)
+  elseif l:file =~# '^\f\+\.go$'
+    call go#cmd#Build(0)
+  endif
+endfunction
+
+autocmd FileType go nmap <leader>t :<C-u>call <SID>build_go_files()<CR>
+
+let g:ale_linters = {'go': ['gometalinter', 'gofmt', 'gopls']}
+let g:ale_sign_error = '⤫'
+let g:ale_sign_warning = '⚠'
+let g:ale_lint_on_text_changed = 'never'
+let g:ale_lint_on_insert_leave = 0
+let g:ale_lint_on_enter = 0
+" "
+" let g:ale_linters = {'ruby': ['ruby']}

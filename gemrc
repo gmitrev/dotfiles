@@ -1,4 +1,4 @@
-install: --no-rdoc --no-ri
-update:  --no-rdoc --no-ri
+install: --no-rdoc --no-ri -N
+update:  --no-rdoc --no-ri -N
 verbose: false
 benchmark: false

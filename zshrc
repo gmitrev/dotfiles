@@ -10,6 +10,7 @@ alias ssr='ss -npl | grep 3000'
 alias glog="git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --"
 
 alias :q='exit'
+alias f='ag -Q'
 
 export RUBY_GC_HEAP_INIT_SLOTS=800000
 export RUBY_HEAP_FREE_MIN=100000
@@ -47,6 +48,7 @@ alias gco='git branch | fzf | xargs git checkout'
 alias gco--='git checkout --'
 alias gcob='git checkout -b'
 alias gpf='git push --force-with-lease'
+alias gpo='git push origin'
 
 alias tailf='tail -f'
 alias mux='tmuxinator'
@@ -66,26 +68,31 @@ fkill() {
 source <(kubectl completion zsh)
 
 # kubectl fun
-alias kuberun='kubectl -n ${NS:-globe} exec -ti $(kubepods | fzf | sed "s/pods\///g")'
-alias kubepods='kubectl get pods -a -n ${NS:-globe} -o name'
-alias kubeget='kubectl -a -n ${NS:-globe} get'
-alias kubelogs='kubepods | fzf | xargs kubectl -n ${NS:-globe} logs --tail=500 --timestamps -f'
-alias kubedesc='kubepods | fzf | xargs kubectl -n ${NS:-globe} describe'
+alias kuberun='kubectl -n ${NS:-monolith} exec -ti $(kubepods | fzf | sed "s/pod\///g")'
+alias kubepods='kubectl get pods -n ${NS:-monolith} -o name'
+alias kubeall='kubectl get all -n ${NS:-monolith} -o name'
+alias kubeget='kubectl -n ${NS:-monolith} get'
+alias kubelogs='kubeall | fzf | xargs kubectl -n ${NS:-monolith} logs --tail=500 --timestamps -f -c main'
+alias kubedesc='kubeall | fzf | xargs kubectl -n ${NS:-monolith} describe'
+alias kubedit='kubeall | fzf | xargs kubectl -n ${NS:-monolith} edit'
 alias kubessh='kuberun bash'
-alias k='kubectl -n ${NS:-globe}'
+alias k='kubectl -n ${NS:-monolith}'
+alias kc='kubectl config get-contexts -o=name | fzf | xargs kubectl config use-context'
+alias drun='docker run --rm -it --entrypoint /bin/bash'
 
 ns() {
-  export NS=$(kubectl get ns -o name | sed "s/namespaces\///g" | fzf)
+  export NS=$(kubectl get ns -o name | sed "s/namespace\///g" | fzf)
 }
 
-alias gres='git fetch origin && git checkout master && git reset --hard origin/master && git checkout production && git reset --hard origin/production && git checkout staging && git reset --hard origin/staging && git checkout master'
-export PYENV_ROOT="$HOME/.pyenv"
-export PATH="$PYENV_ROOT/bin:$PATH"
-eval "$(pyenv init -)"
+# alias gres='git fetch origin && git checkout master && git reset --hard origin/master && git checkout staging && git reset --hard origin/staging && git checkout production && git reset --hard origin/production && git checkout master'
+alias gres='git fetch origin && git checkout master && git reset --hard origin/master; git checkout staging && git reset --hard origin/staging; git checkout production && git reset --hard origin/production; git checkout master'
+# export PYENV_ROOT="$HOME/.pyenv"
+# export PATH="$PYENV_ROOT/bin:$PATH"
+# eval "$(pyenv init -)"
 
 # https://stackoverflow.com/questions/10887560/zsh-for-loop-array-variable-issue
 set -o shwordsplit
 
-chruby ruby-2.5.3
+chruby ruby-2.7.0
 
 export PATH="/Users/georgi/bin/:$PATH"

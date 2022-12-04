@@ -1,0 +1,37 @@
+" vim: filetype=vim
+sanitize tridactyllocal tridactylsync
+
+set newtab about:blank
+set hintchars fdsqjklmrezauiopwxcvghtybn
+set hintchars fdsagrewvtqbcx
+set hintnames short
+set hintfiltermode vimperator-reflow
+set hintdelay 100
+
+bind q tabprev
+bind e tabnext
+bind j scrollline 2
+bind k scrollline -2
+bind d scrollline 16
+bind u scrollline -16
+bind x tabclose
+bind X undo
+bind h back
+bind l forward
+bind f hint -b
+bind F hint
+bind c hint -Jc [class*="expand"],[class*="togg"],[class="comment_folder"]
+bind S fillcmdline open search
+bind s fillcmdline tabopen search
+
+bindurl www.google.com f hint -Jbc #search div:not(.action-menu) > a
+bindurl www.google.com F hint -Jc #search div:not(.action-menu) > a
+bindurl youtu((\.be)|(be\.com)) F hint -J
+bindurl reddit.com f hint -Jcb .bylink.comments, a.title, .expando-button, p > a
+bindurl reddit.com F hint -Jc .bylink.comments, a.title, .expando-button
+
+set searchurls.amazon https://www.amazon.de/s/ref=nb_sb_noss?field-keywords=%s
+set searchurls.gmaps https://www.google.com/maps/search/%s
+set searchurls.imdb https://www.imdb.com/find?q=%s
+set searchurls.r https://www.reddit.com/r/%s
+set searchurls.y https://www.youtube.com/results?search_query=%s

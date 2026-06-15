@@ -15,9 +15,6 @@ setopt HIST_IGNORE_DUPS          # Don't record an entry that was just recorded 
 setopt HIST_IGNORE_ALL_DUPS      # Delete old recorded entry if new entry is a duplicate.
 setopt HIST_SAVE_NO_DUPS         # Don't write duplicate entries in the history file.
 
-# Disable confirmation when using rm -f
-setopt rmstarsilent
-
 alias vi="nvim"
 alias vim="nvim"
 alias ogvim="vim"
@@ -47,6 +44,9 @@ export THOR_SILENCE_DEPRECATION=1
 
 export EDITOR=vim
 [ -n "$TMUX" ] && export TERM=screen-256color-bce
+
+alias ls="eza --git"
+alias ogls="ls"
 
 # TMUXINATOR
 [[ -s $HOME/.tmuxinator/scripts/tmuxinator ]] && source $HOME/.tmuxinator/scripts/tmuxinator
@@ -89,14 +89,9 @@ ns() {
 alias gres='git fetch origin && git checkout master && git reset --hard origin/master; git checkout staging && git reset --hard origin/staging; git checkout production && git reset --hard origin/production; git checkout master'
 alias gres2='git fetch origin && git checkout main && git reset --hard origin/main; git checkout staging && git reset --hard origin/staging; git checkout main'
 
-# https://stackoverflow.com/questions/10887560/zsh-for-loop-array-variable-issue
-set -o shwordsplit
-
 export PATH="/Users/georgi/bin/:$PATH"
 export PATH="/Users/georgi/.local/bin/:$PATH"
 export PATH="/Applications/Postgres.app/Contents/Versions/latest/bin:$PATH"
-export PATH=$PATH:$GOPATH/bin
-export PATH=$(pyenv root)/shims:$PATH
 
 fpath=(/usr/local/share/zsh-completions $fpath)
 
@@ -137,10 +132,6 @@ export OBJC_DISABLE_INITIALIZE_FORK_SAFETY=YES
 
 # Nicer "enter" handling in pagers
 stty sane
-
-export PYENV_ROOT="$HOME/.pyenv"
-command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"
-eval "$(pyenv init -)"
 
 # Reuse a single ssh-agent across shells instead of spawning a new one each time
 SSH_ENV="$HOME/.ssh/agent-env"

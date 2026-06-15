@@ -24,7 +24,7 @@ alias ssr='ss -npl | grep 3000'
 alias glog="git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --"
 
 alias :q='exit'
-alias f='ag -Q --path-to-ignore ~/.ignore'
+alias f='rg --fixed-strings --ignore-file ~/.ignore'   # drop --fixed-strings for regex search
 alias cl='git clean -f doc/changelog'
 
 export RUBY_GC_HEAP_INIT_SLOTS=800000
@@ -116,15 +116,21 @@ passgen() {
   pass generate $1/georgi@mitrev.net 20 ${@:2:999}
 }
 
+# yazi: launch with `y`, cd into the dir you quit from (opener rules live in yazi.toml)
+y() {
+  local tmp; tmp="$(mktemp -t yazi-cwd.XXXXXX)"; local cwd
+  yazi "$@" --cwd-file="$tmp"
+  if cwd="$(command cat -- "$tmp")" && [ -n "$cwd" ] && [ "$cwd" != "$PWD" ]; then
+    builtin cd -- "$cwd"
+  fi
+  rm -f -- "$tmp"
+}
+
 alias rdbm='rails db:migrate'
 alias brdbm='bundle install && rails db:migrate'
 
 # fuck that
 export HOMEBREW_NO_AUTO_UPDATE=1
-
-if command -v ngrok &>/dev/null; then
-  eval "$(ngrok completion)"
-fi
 
 
 # https://github.com/rails/rails/issues/38560

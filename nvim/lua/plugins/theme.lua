@@ -24,6 +24,18 @@ return {
 			vim.g.gruvbox_contrast_light = "medium"
 			vim.g.gruvbox_italic = 0
 			vim.cmd.colorscheme("gruvbox")
+
+			-- +/- diff lines (commit buffer, fugitive, etc.) need a bg tint on light gruvbox
+			local function diff_hl()
+				vim.api.nvim_set_hl(0, "diffAdded", { fg = "#427b58", bg = "#dcecca" })
+				vim.api.nvim_set_hl(0, "diffRemoved", { fg = "#9d0006", bg = "#f5d9d6" })
+				vim.api.nvim_set_hl(0, "Added", { link = "diffAdded" }) -- nvim default group
+				vim.api.nvim_set_hl(0, "Removed", { link = "diffRemoved" })
+				vim.api.nvim_set_hl(0, "@diff.plus", { link = "diffAdded" }) -- treesitter diff
+				vim.api.nvim_set_hl(0, "@diff.minus", { link = "diffRemoved" })
+			end
+			diff_hl()
+			vim.api.nvim_create_autocmd("ColorScheme", { callback = diff_hl })
 		end,
 	},
 	{

@@ -6,9 +6,9 @@
   user = gmitrev
 [branch]
   autosetuprebase = always
-  autoSetupRemote = true
 [push]
   default = current
+  autoSetupRemote = true
 [core]
   pager = delta
   excludesfile = /Users/georgi/.gitignore_global
@@ -34,3 +34,10 @@
 [diff]
   algorithm = histogram
   colorMoved = default
+  tool = difftastic
+[difftool]
+  prompt = false
+[difftool "difftastic"]
+  cmd = difft "$LOCAL" "$REMOTE"
+[alias]
+  dft = difftool          ; structural diff: git dft [<rev>]

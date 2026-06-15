@@ -1,0 +1,22 @@
+name: Offlife
+root: ~/code/rb/offlife
+
+tmux_options: -2
+windows:
+  - vim: vim
+  - shell:
+  - server: bin/rails s -p 3456
+  - console:
+      layout: even-horizontal
+      panes:
+        - vim tmp/scratchpad.rb
+        - rails console
+  - vite: bin/vite dev
+  - shell:
+  - production:
+      layout: even-horizontal
+      panes:
+        - vim tmp/production.rb
+        - shell
+  - shell:
+  - claude: claude

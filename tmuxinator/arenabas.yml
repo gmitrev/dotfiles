@@ -1,0 +1,13 @@
+name: arenabas
+root: ~/code/js/arenabas
+tmux_options: -2
+windows:
+  - vim: vim
+  - shell:
+  - server: yarn run dev
+  - shell:
+  - shell:
+  - shell:
+  - shell:
+  - shell:
+  - claude: claude

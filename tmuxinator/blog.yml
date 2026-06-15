@@ -1,0 +1,13 @@
+name: blog
+root: ~/code/rb/blog
+
+windows:
+  - vim: vim
+  - shell:
+  - server: be jekyll serve --watch
+  - shell:
+  - shell:
+  - shell:
+  - shell:
+  - shell:
+  - claude: claude

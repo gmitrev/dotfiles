@@ -1,0 +1,20 @@
+name: stonksfolio
+root: ~/code/rb/stonksfolio
+tmux_options: -2
+windows:
+  - vim: vim
+  - shell:
+  - server:
+      layout: main-vertical
+      panes:
+        - ss
+  - console:
+      layout: main-vertical
+      panes:
+        - vim tmp/scratchpad.rb
+        - rails console
+  - frontend: bin/vite dev
+  - shell:
+  - shell:
+  - stripe: stripe listen --forward-to 127.0.0.1:3456/stripe/webhook
+  - claude: claude

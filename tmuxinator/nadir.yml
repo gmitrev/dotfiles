@@ -1,0 +1,17 @@
+name: nadir
+root: ~/code/rb/nadir
+tmux_options: -2
+windows:
+  - vim: vim
+  - shell:
+  - server: rails s
+  - console:
+      layout: main-vertical
+      panes:
+        - vim tmp/scratchpad.rb
+        - rails console
+  - test: rspec spec
+  - shell:
+  - shell:
+  - shell:
+  - claude: claude

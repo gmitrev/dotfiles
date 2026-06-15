@@ -1,0 +1,14 @@
+name: spine
+root: ~/code/ts/spine
+tmux_options: -2
+
+windows:
+  - vim: vim
+  - shell:
+  - metro: npx expo run:ios --device
+  - build:
+  - shell:
+  - shell:
+  - shell:
+  - shell:
+  - claude: claude

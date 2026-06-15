@@ -29,8 +29,13 @@ Plugin 'janko-m/vim-test'
 
 " JS
 Plugin 'pangloss/vim-javascript'
+Plugin 'leafgarland/typescript-vim'
+Plugin 'MaxMEllon/vim-jsx-pretty'
+Plugin 'peitalin/vim-jsx-typescript'
+Plugin 'jparise/vim-graphql'
 Plugin 'kchmck/vim-coffee-script'
 Plugin 'othree/javascript-libraries-syntax.vim'
+Plugin 'prettier/vim-prettier'
 
 " Html
 Plugin 'alvan/vim-closetag'
@@ -44,7 +49,8 @@ Plugin 'tpope/vim-rhubarb'                  " Adds :Gbrowse
 
 " Syntax
 Plugin 'tomtom/tcomment_vim'
-" Plugin 'dense-analysis/ale'
+Plugin 'dense-analysis/ale'
+Plugin 'sheerun/vim-polyglot'
 
 " Indentation
 Plugin 'vim-scripts/IndentAnything'
@@ -63,7 +69,7 @@ Plugin 'jistr/vim-nerdtree-tabs'
 " File navigation
 Plugin 'rking/ag.vim'                       " Search in files
 Plugin 'Chun-Yang/vim-action-ag'
-Plugin 'kien/ctrlp.vim'                     " Quick file navigation
+Plugin 'ctrlpvim/ctrlp.vim'                     " Quick file navigation
 Plugin 'FelikZ/ctrlp-py-matcher'
 
 " Util
@@ -71,20 +77,32 @@ Plugin 'vimwiki/vimwiki.git'
 Plugin 'airblade/vim-rooter'
 Plugin 'ap/vim-css-color'
 Plugin 'benmills/vimux'
-Plugin 'calebsmith/vim-lambdify'
 Plugin 'ngmy/vim-rubocop'
 Plugin 'tpope/vim-repeat'
-Plugin 'AndrewRadev/writable_search.vim'
 Plugin 'AndrewRadev/splitjoin.vim'
 Plugin 'junegunn/vim-easy-align'
+Plugin 'vim-utils/vim-husk'
+Plugin 'danro/rename.vim'
 
 " Themes
 Plugin 'gmitrev/amalgam.vim'
 Plugin 'gmitrev/darksong.vim'
 Plugin 'itchyny/lightline.vim'
-" Plugin 'vim/killersheep'
 
 call vundle#end()
+
+call plug#begin('~/.vim/plugged')
+
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+" Plug 'iamcco/coc-tailwindcss', {'do': 'yarn install --frozen-lockfile && yarn run build'}
+" Plug 'autozimu/LanguageClient-neovim', {'branch': 'next', 'do': 'bash install.sh'}
+Plug 'junegunn/fzf'
+Plug 'evanleck/vim-svelte', {'branch': 'main'}
+
+" Initialize plugin system
+call plug#end()
+
+
 filetype plugin indent on
 filetype plugin on
 
@@ -137,7 +155,7 @@ set ruler           " Show the line and column number of the cursor position,
                     " good on a dark background. When set to "light", Vim will
                     " try to use colors that look good on a light background.
                     " Any other value is illegal.
-set colorcolumn=120 " Vertical column at char 120
+set colorcolumn=100 " Vertical column at char 120
 set title
 set nobackup        " We don't want no backup
 set noswapfile      " Get rid of swap files
@@ -235,6 +253,8 @@ let g:ctrlp_max_files = 100000
 " Ignore crappy folders
 let g:ctrlp_custom_ignore = '\v[\/](coverage|tmp|out|node_modules|deps|_build)$'
 let g:ctrlp_user_command = ['.git/', 'git --git-dir=%s/.git ls-files -oc --exclude-standard']
+let g:ctrlp_switch_buffer = 'et'
+
 
 " Edit/source vimrc bindings
 nmap <silent> <leader>ev :e $MYVIMRC<CR>
@@ -294,7 +314,6 @@ au BufEnter *.rb syn match error contained "\<perfrom\>"
 au BufEnter *.rb syn match error contained "\<perfrom_later\>"
 au BufEnter *.rb syn match error contained "\<perfrom_now\>"
 
-"
 autocmd Filetype gitcommit setlocal spell textwidth=72
 
 " When you forget sudo
@@ -319,13 +338,10 @@ nmap <silent> <leader>a :TestSuite<CR>
 let test#strategy = "vimux"
 let g:rspec_command = "!zeus test {spec}"
 
-" function RunRubocopOnCurrentFile()
-"   execute "!bundle exec rubocop %"
-" endfunction
-" map <Leader>g :call RunRubocopOnCurrentFile()<CR>
-map <Leader>g :RuboCop<CR>
+map <Leader>b :Git blame<CR>
 
-map <Leader>b :Gblame<CR>
+let g:vimrubocop_keymap = 0
+nmap <Leader>f :RuboCop -a<CR>
 
 " Vimwiki
 let g:vimwiki_list = [{'path': '~/Dropbox/vimwiki', 'syntax': 'markdown', 'ext': '.md'}]
@@ -382,20 +398,20 @@ nmap ga <Plug>(EasyAlign)
 map ,pt  :%!sqlformat --reindent --keywords upper --identifiers lower -<CR>
 
 " Go
-let g:polyglot_disabled = ['go']
-let g:go_highlight_functions = 1
-let g:go_highlight_methods = 1
-let g:go_highlight_fields = 1
-let g:go_highlight_types = 1
-let g:go_highlight_structs = 1
-let g:go_highlight_operators = 1
-let g:go_highlight_build_constraints = 1
-let g:go_fmt_fail_silently = 0
-let g:go_fmt_command = "goimports"
-let g:go_def_mapping_enabled = 0
-let g:go_def_mode = 'gopls'
-let g:go_info_mode = 'gopls'
-let g:go_auto_type_info = 1
+" let g:polyglot_disabled = ['go']
+" let g:go_highlight_functions = 1
+" let g:go_highlight_methods = 1
+" let g:go_highlight_fields = 1
+" let g:go_highlight_types = 1
+" let g:go_highlight_structs = 1
+" let g:go_highlight_operators = 1
+" let g:go_highlight_build_constraints = 1
+" let g:go_fmt_fail_silently = 0
+" let g:go_fmt_command = "goimports"
+" let g:go_def_mapping_enabled = 0
+" let g:go_def_mode = 'gopls'
+" let g:go_info_mode = 'gopls'
+" let g:go_auto_type_info = 1
 
 " run :GoBuild or :GoTestCompile based on the go file
 function! s:build_go_files()
@@ -409,11 +425,48 @@ endfunction
 
 autocmd FileType go nmap <leader>t :<C-u>call <SID>build_go_files()<CR>
 
-let g:ale_linters = {'go': ['gometalinter', 'gofmt', 'gopls']}
+" \   'javascript': ['eslint'],
+" \   'ruby': ['standardrb'],
+let g:ale_linters = {
+\}
+
+" \    'ruby': ['standardrb'],
+let g:ale_fixers = {
+\    'javascript': ['eslint', 'prettier'],
+\    'typescript': ['prettier'],
+\}
+let g:ale_fix_on_save = 1
 let g:ale_sign_error = '⤫'
 let g:ale_sign_warning = '⚠'
 let g:ale_lint_on_text_changed = 'never'
 let g:ale_lint_on_insert_leave = 0
 let g:ale_lint_on_enter = 0
-" "
-" let g:ale_linters = {'ruby': ['ruby']}
+let g:ale_linters_explicit = 1
+
+let g:ruby_indent_assignment_style = 'variable'
+
+let g:SuperTabDefaultCompletionType = "<c-n>"
+let g:SuperTabContextDefaultCompletionType = "<c-n>"
+
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
+
+nnoremap <silent> K :call ShowDocumentation()<CR>
+
+function! ShowDocumentation()
+  if CocAction('hasProvider', 'hover')
+    call CocActionAsync('doHover')
+  else
+    call feedkeys('K', 'in')
+  endif
+endfunction
+
+autocmd CursorHold * silent call CocActionAsync('highlight')
+
+nnoremap <Leader>x :set cursorline! cursorcolumn!<CR>
+command! -nargs=0 Prettier :call CocAction('runCommand', 'prettier.formatFile')
+
+" Thanks Gena!
+set langmap+=чявертъуиопшщасдфгхйклзьцжбнмЧЯВЕРТЪУИОПШЩАСДФГХЙКЛЗѝЦЖБНМ;`qwertyuiop[]asdfghjklzxcvbnm~QWERTYUIOP{}ASDFGHJKLZXCVBNM,ю\\,Ю\|,

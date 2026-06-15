@@ -1,6 +1,7 @@
 [user]
-  name = Georgi Mitrev
-  email = gvmitrev@gmail.com
+	name = Georgi Mitrev
+	email = gvmitrev@gmail.com
+	signingkey = 9CAC925B34AD62E5
 [github]
   user = gmitrev
 [branch]
@@ -10,6 +11,7 @@
 [core]
   pager = diff-highlight | diff-so-fancy | less --tabs=1,5 -R
   excludesfile = /Users/georgi/.gitignore_global
+	editor = nvim -c 'set textwidth=72'
 [color "diff"]
   meta = yellow bold
   commit = green bold
@@ -28,3 +30,7 @@
   enabled = true
 [pager]
 	branch = false
+[commit]
+	gpgsign = true
+[merge]
+	conflictstyle = diff3

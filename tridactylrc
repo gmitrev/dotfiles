@@ -1,4 +1,5 @@
 " vim: filetype=vim
+" Native messenger should be built manually for this to work on M2
 sanitize tridactyllocal tridactylsync
 
 set newtab about:blank
@@ -7,6 +8,7 @@ set hintchars fdsagrewvtqbcx
 set hintnames short
 set hintfiltermode vimperator-reflow
 set hintdelay 100
+set modeindicator false
 
 bind q tabprev
 bind e tabnext
@@ -35,3 +37,8 @@ set searchurls.gmaps https://www.google.com/maps/search/%s
 set searchurls.imdb https://www.imdb.com/find?q=%s
 set searchurls.r https://www.reddit.com/r/%s
 set searchurls.y https://www.youtube.com/results?search_query=%s
+
+unbind <C-i>
+bind <C-i> nop --mode=all
+bind <Tab> nop --mode=all
+blacklistadd mitrev.net

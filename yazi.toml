@@ -1,0 +1,23 @@
+# Open text/code in nvim (takes over the terminal), everything else via macOS `open`.
+[opener]
+edit = [
+  { run = 'nvim "$@"', block = true },
+]
+open = [
+  { run = 'open "$@"', desc = "Open (macOS default)", orphan = true, for = "macos" },
+]
+
+[open]
+rules = [
+  { mime = "text/*", use = "edit" },
+  { mime = "application/json", use = "edit" },
+  { mime = "application/{javascript,x-yaml,toml,xml,x-shellscript}", use = "edit" },
+  { mime = "inode/x-empty", use = "edit" },
+  { url = "*.{rb,erb,rake,ru,lua,js,ts,jsx,tsx,go,py,md,markdown,conf,env,sql,sh,zsh}", use = "edit" },
+
+  # everything else -> macOS default app
+  { mime = "*", use = "open" },
+]
+
+[mgr]
+linemode = "size"   # show file size next to each entry by default

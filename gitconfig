@@ -1,36 +1,36 @@
 [user]
-	name = Georgi Mitrev
-	email = gvmitrev@gmail.com
-	signingkey = 9CAC925B34AD62E5
+  name = Georgi Mitrev
+  email = gvmitrev@gmail.com
+  signingkey = 9CAC925B34AD62E5
 [github]
   user = gmitrev
 [branch]
   autosetuprebase = always
+  autoSetupRemote = true
 [push]
   default = current
 [core]
-  pager = diff-highlight | diff-so-fancy | less --tabs=1,5 -R
+  pager = delta
   excludesfile = /Users/georgi/.gitignore_global
-	editor = nvim -c 'set textwidth=72'
-[color "diff"]
-  meta = yellow bold
-  commit = green bold
-  frag = magenta bold
-  old = red bold
-  new = green bold
-  whitespace = red reverse
-[color "diff-highlight"]
-  oldNormal = red bold
-  oldHighlight = red bold 52
-  newNormal = green bold
-  newHighlight = green bold 22
+  editor = nvim -c 'set textwidth=72'
 [pull]
   rebase = true
 [rerere]
   enabled = true
 [pager]
-	branch = false
+  branch = false
 [commit]
-	gpgsign = true
+  gpgsign = true
+[interactive]
+  diffFilter = delta --color-only
+[delta]
+  navigate = true
+  dark = false
+  line-numbers = true
+  syntax-theme = gruvbox-light
+  hyperlinks = true
 [merge]
-	conflictstyle = diff3
+  conflictStyle = zdiff3
+[diff]
+  algorithm = histogram
+  colorMoved = default

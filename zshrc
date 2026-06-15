@@ -54,18 +54,6 @@ export LANG=en_US.UTF-8
 export LC_CTYPE=en_US.UTF-8
 export LC_ALL=en_US.UTF-8
 
-# CHRUBY
-# source /opt/homebrew/opt/chruby/share/chruby/chruby.sh
-# source /opt/homebrew/opt/chruby/share/chruby/auto.sh
-#
-# chruby ruby-3.1.3
-
-# ASDF
-# export PATH="${ASDF_DATA_DIR:-$HOME/.asdf}/shims:$PATH"
-# fpath=(${ASDF_DATA_DIR:-$HOME/.asdf}/completions $fpath)
-# autoload -Uz compinit && compinit
-
-# set -o vi
 export EVENT_NOEPOLL=1
 export BROWSER=open
 
@@ -94,21 +82,6 @@ fkill() {
   fi
 }
 
-# source <(kubectl completion zsh)
-
-# kubectl fun
-alias kuberun='kubectl -n ${NS:-monolith} exec -ti $(kubepods | fzf | sed "s/pod\///g")'
-alias kubepods='kubectl get pods -n ${NS:-monolith} -o name'
-alias kubeall='kubectl get all -n ${NS:-monolith} -o name'
-alias kubeget='kubectl -n ${NS:-monolith} get'
-alias kubelogs='kubeall | fzf | xargs kubectl -n ${NS:-monolith} logs --tail=500 --timestamps -f -c main'
-alias kubedesc='kubeall | fzf | xargs kubectl -n ${NS:-monolith} describe'
-alias kubedit='kubeall | fzf | xargs kubectl -n ${NS:-monolith} edit'
-alias kubessh='kuberun bash'
-alias k='kubectl -n ${NS:-monolith}'
-alias kc='kubectl config get-contexts -o=name | fzf | xargs kubectl config use-context'
-alias drun='docker run --rm -it --entrypoint /bin/bash'
-
 ns() {
   export NS=$(kubectl get ns -o name | sed "s/namespace\///g" | fzf)
 }
@@ -129,8 +102,6 @@ fpath=(/usr/local/share/zsh-completions $fpath)
 
 alias tmuxa='tmux attach -t $(tmux ls -F "#S" | fzf)'
 
-# source <(hcloud completion zsh)
-
 alias murder='ps aux | grep puma | cut -c 18-23 | xargs kill -9'
 alias s='murder; rs'
 alias ss='murder; bin/rails s -p 3456'
@@ -139,8 +110,6 @@ alias v='killvite; yarn install && rm -rf node_modules/.vite && bin/vite dev'
 alias skiq='redis-cli flushall && be sidekiq'
 
 export DISABLE_SPRING=1
-
-# source /Users/gmitrev/Library/Preferences/org.dystroy.broot/launcher/bash/br
 
 export GPG_TTY=$(tty)
 
@@ -154,8 +123,6 @@ passgen() {
 
 alias rdbm='rails db:migrate'
 alias brdbm='bundle install && rails db:migrate'
-
-alias sdeploy='ssh -t gw-a "export DEPLOY_USER=$(whoami);./Simplero/script/deploy-from-bastion.sh $*"'
 
 # fuck that
 export HOMEBREW_NO_AUTO_UPDATE=1
@@ -175,7 +142,16 @@ export PYENV_ROOT="$HOME/.pyenv"
 command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"
 eval "$(pyenv init -)"
 
-eval $(ssh-agent)
-ssh-add --apple-use-keychain
+# Reuse a single ssh-agent across shells instead of spawning a new one each time
+SSH_ENV="$HOME/.ssh/agent-env"
+[ -f "$SSH_ENV" ] && source "$SSH_ENV" >/dev/null
+ssh-add -l &>/dev/null
+if [ $? -eq 2 ]; then
+  # No usable agent reachable — start one and remember it for future shells
+  (umask 077; ssh-agent -s > "$SSH_ENV")
+  source "$SSH_ENV" >/dev/null
+fi
+# Load keys whose passphrases are already in the macOS keychain (idempotent)
+ssh-add --apple-load-keychain &>/dev/null
 
 eval "$(mise activate zsh)"

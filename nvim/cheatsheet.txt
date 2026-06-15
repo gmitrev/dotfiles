@@ -1,0 +1,150 @@
+# Keybind Reference
+
+Leader = `,`. This file is loaded by cheatsheet.nvim — open with `,h` (Telescope-searchable).
+
+## core
+
+Action | Keys
+--- | ---
+Clear search highlight | `<Esc>` or `,q`
+Window focus left / right | `<C-h>` / `<C-l>`
+Move line up / down | `<C-k>` / `<C-j>`
+Exit insert mode | `jj`
+Edit init.lua | `,ev`
+First non-blank of line (remapped) | `0`
+
+## lsp
+
+Action | Keys
+--- | ---
+Hover docs | `K`
+Rename symbol | `grn` or `,rn`
+Code action | `gra` or `,ca`
+Add ALL missing imports (TS/JS) | `,ai`
+Goto definition | `grd` or `,gd`
+Goto declaration | `grD`
+Goto references | `grr` or `,gr`
+Goto implementation | `gri`
+Goto type definition | `grt`
+Document symbols | `gO`
+Workspace symbols | `gW`
+Format via LSP | `,gf`
+Toggle inlay hints | `,th`
+
+## telescope
+
+Action | Keys
+--- | ---
+Find files | `,f`
+Live grep | `,sg`
+Live grep word under cursor | `,gw`
+Grep exact word under cursor | `,sw`
+Fuzzy search current buffer | `,/`
+Grep in open files | `,s/`
+Recent files | `,..`
+Diagnostics | `,sd`
+Resume last picker | `,sr`
+Help tags | `,sh`
+Keymaps | `,sk`
+All builtin pickers | `,ss`
+Find nvim config files | `,sn`
+Next / prev result (in picker) | `<C-j>` / `<C-k>`
+
+## tabby
+
+Action | Keys
+--- | ---
+New tab | `,t`
+Close tab | `,x`
+Close all other tabs | `,to`
+Next / prev tab | `<Tab>` / `<S-Tab>`
+Move tab left / right | `,tmp` / `,tmn`
+Jump to tab by label | `,<Tab>`
+
+## neo-tree
+
+Action | Keys
+--- | ---
+Reveal current file in tree | `,.`
+
+## leap
+
+Action | Keys
+--- | ---
+Leap to 2-char match | `s`
+Leap in other windows | `S`
+
+## hop
+
+Action | Keys
+--- | ---
+Hop to 2-char match | `<Space>`
+
+## blame
+
+Action | Keys
+--- | ---
+Toggle git blame window | `,b`
+
+## vim-test
+
+Action | Keys
+--- | ---
+Run current test file | `,tt`
+Run nearest test | `,ts`
+
+## vim-slime
+
+Action | Keys
+--- | ---
+Send line to tmux pane | `,r`
+Send region to tmux pane | `,e`
+
+## conform
+
+Action | Keys
+--- | ---
+Format buffer | `,a`
+
+## zen-mode
+
+Action | Keys
+--- | ---
+Toggle zen mode | `,zm`
+
+## cheatsheet
+
+Action | Keys
+--- | ---
+Open this cheatsheet | `,h`
+
+## easy-align
+
+Action | Keys
+--- | ---
+Start EasyAlign (then delimiter) | `ga`
+
+## tailwind-tools
+
+Action | Keys
+--- | ---
+Toggle Tailwind class conceal | `,tc`
+
+## blink.cmp (insert mode)
+
+Action | Keys
+--- | ---
+Accept completion | `<Tab>`
+Next / prev item | `<C-j>` / `<C-k>` or `<C-n>` / `<C-p>`
+Open menu / docs | `<C-Space>`
+Hide menu | `<C-e>`
+Scroll docs down / up | `<C-d>` / `<C-u>`
+
+## vim-surround + mini.ai
+
+Action | Keys
+--- | ---
+Add surround | `ys{motion}{char}`
+Change surround | `cs{old}{new}`
+Delete surround | `ds{char}`
+Around / inside textobjects (mini.ai) | `va)` `viq` `ci'` ...

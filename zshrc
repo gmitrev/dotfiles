@@ -150,5 +150,8 @@ if [ $? -eq 2 ]; then
 fi
 # Load keys whose passphrases are already in the macOS keychain (idempotent)
 ssh-add --apple-load-keychain &>/dev/null
+ssh-add ~/.ssh/id_rsa &>/dev/null
+
+alias tailscale="/Applications/Tailscale.app/Contents/MacOS/Tailscale"
 
 eval "$(mise activate zsh)"

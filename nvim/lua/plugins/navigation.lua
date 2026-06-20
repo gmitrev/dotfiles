@@ -69,17 +69,6 @@ return {
 	},
 
 	{
-		url = "https://codeberg.org/andyg/leap.nvim",
-		event = "VeryLazy",
-		config = function()
-			local leap = require("leap")
-			leap.opts.labels = "sfnjklhodweimbuyvrgtaqpcxz"
-			leap.opts.safe_labels = "sfnut"
-			vim.keymap.set({ "n", "x", "o" }, "s", "<Plug>(leap)")
-			vim.keymap.set("n", "S", "<Plug>(leap-from-window)")
-		end,
-	},
-	{
 		"smoka7/hop.nvim",
 		version = "*",
 		event = "VeryLazy",

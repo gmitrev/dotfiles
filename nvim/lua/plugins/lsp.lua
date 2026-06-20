@@ -203,7 +203,9 @@ return {
 			-- the working directory. Because it's not Mason-managed, mason-lspconfig
 			-- won't auto-enable it, so register + enable it explicitly here.
 			vim.lsp.config("ruby_lsp", { capabilities = capabilities })
-			vim.lsp.enable("ruby_lsp")
+			if vim.fn.executable("ruby-lsp") == 1 then
+				vim.lsp.enable("ruby_lsp")
+			end
 		end,
 	},
 }
